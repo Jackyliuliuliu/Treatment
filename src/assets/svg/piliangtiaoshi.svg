@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/piliangtiaoshi</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/piliangtiaoshi" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="shijian-2" transform="translate(2.000000, 2.000000)" fill="#DCE0F2" fill-rule="nonzero">
+            <path d="M8,17.9449441 C3.50050783,17.4469056 0,13.6310817 0,8.99899587 C0,4.02856187 4.02856187,4.28085549e-16 8.99899587,4.28085549e-16 C13.9714381,0 18,4.02856187 18,8.99899587 C18,10.4461492 17.6587759,11.8133548 17.0524178,13.0245721 L8,15 L8,17.9449441 Z M12.6038157,11.5150396 C12.880955,11.1776526 12.8307486,10.6775968 12.4933616,10.4004574 L9.66975343,8.09096285 L9.66975343,4.74922459 C9.66975343,4.31142475 9.31429209,3.95596341 8.87649225,3.95596341 C8.4386924,3.95596341 8.08323106,4.31142475 8.08323106,4.74922459 L8.08323106,8.46851501 C8.0832667,8.70608491 8.19020644,8.93102713 8.3744282,9.08103314 L11.4872253,11.627502 C11.6358362,11.7479973 11.8125628,11.8062368 11.9892893,11.8062368 C12.2202388,11.8062368 12.4471717,11.7058239 12.6038157,11.5150396 Z" id="Combined-Shape"></path>
+        </g>
+        <polygon id="Rectangle" fill="#DCE0F2" points="11 18 15 17 15 23 11 22"></polygon>
+        <polygon id="Rectangle-Copy" fill="#DCE0F2" points="16 18.6666667 18 18 18 22 16 21.3333333"></polygon>
+        <polygon id="Rectangle-Copy-2" fill="#DCE0F2" points="19 18.6666667 21 18 21 22 19 21.3333333"></polygon>
+    </g>
+</svg>

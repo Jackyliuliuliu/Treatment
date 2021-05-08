@@ -1,0 +1,8 @@
+<a (click)="showExportModal()" class="menu-icon" nz-tooltip [nzTitle]="exportTooltip" nzPlacement="bottom">
+    <img class="menu-icon-img" src="../../../../assets/svg/icon_export.svg" />
+    <ng-template #exportTooltip>
+        <div class="tooltip-template">
+            <p class="middle-text">{{l('Export')}}</p>
+        </div>
+    </ng-template>
+</a>

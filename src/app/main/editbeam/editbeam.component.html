@@ -1,0 +1,92 @@
+<div class="tool-box">
+    <button class="tool-icon" (click)="editBeam()"[disabled]="!isEditPermission"><img src="../../../../assets/svg/edit_beam.svg" /></button>
+    <p class="text">编辑射野</p>
+</div>
+<nz-modal [nzVisible]="isEditbeam" nzMaskClosable="false" nzTitle="编辑射野" nzWidth="560px"
+    nzWrapClassName="vertical-center-modal" (nzOnCancel)="cancelEdit()" [nzFooter]="modalFooter">
+    <form nz-form #validateForm="ngForm" >
+        <div class="common-form-box FlexRow">
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('beamName')}}</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input [(ngModel)]="beamName" required maxlength="64" name="beamName" checkBackslash>
+                            <span *ngIf="validateForm.form.hasError('required','beamName')" style="color: #E36732;">射野名称为必填项</span>
+                            <span *ngIf="validateForm.form.hasError('check','beamName')" style="color: #E36732;">禁止输入反斜杠</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <div *ngIf="toleracnceEditable">
+                        <nz-form-item>
+                            <span class="checkbox-import">*</span>
+                            <nz-form-label nzNoColon="true">{{l('Tolerance')}}</nz-form-label>
+                            <nz-form-control>
+                                <nz-select [disabled]="!toleracnceEditable" required name="tolerance"  [(ngModel)]="tolerance">
+                                    <nz-option *ngFor="let i of tolerances" [nzLabel]="i.toleranceTableLabel" [nzValue]="i">
+                                    </nz-option>
+                                </nz-select>
+                                <span *ngIf="validateForm.form.hasError('required','tolerance')" style="color: #E36732;">公差为必填项</span>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol"  *ngIf="isCreatedByTms">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">{{l('Beam Dose(cGy)')}}</nz-form-label>
+                        <input nz-input type="number" NumberOnly min=0 [(ngModel)]="beamDose" name="beamDose" onlyPositiveFloatCheck2>
+                        <span *ngIf="validateForm.form.hasError('onlyFloat','beamDose')" style="color: #E36732;">精度为两位小数的非负数</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">{{l('radiation mode')}}</nz-form-label>
+                        <nz-form-control>
+                            <nz-select [nzSuffixIcon]="templateS" [(ngModel)]="beamMode" name="beamMode" [nzShowSearch]="true" >
+                            <nz-option *ngFor="let i of beamModes" [nzLabel]="i"  [nzValue]="i"> </nz-option></nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol"  *ngIf="isCreatedByTms">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">SSD</nz-form-label>
+                        <input nz-input type="number" NumberOnly min=0 [(ngModel)]="SSD" name="SSD" onlyPositiveFloatCheck1  checkMin="50" checkMax="150">
+                        <span *ngIf="validateForm.form.hasError('onlyFloat','SSD')" style="color: #E36732;">精度为一位小数的非负数</span>
+                        <span *ngIf="validateForm.form.hasError('checkMin','SSD')" style="color: #E36732;">最小值50</span>
+                        <span *ngIf="validateForm.form.hasError('checkMax','SSD')" style="color: #E36732;">最大值150</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill" *ngIf="isCreatedByTms">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">MU</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input type="number" NumberOnly min=0 [(ngModel)]="MU" name="MU" onlyPositiveFloatCheck2>
+                            <span *ngIf="validateForm.form.hasError('onlyFloat','MU')" style="color: #E36732;">精度为两位小数的非负数</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">{{l('Beam description')}}</nz-form-label>
+                        <nz-form-control>
+                            <textarea rows="4" [(ngModel)]="description" name="description" nz-input maxlength="1024" checkBackslash></textarea>
+                            <span *ngIf="validateForm.form.hasError('check','description')" style="color: #E36732;">禁止输入反斜杠</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="cancelEdit()">{{l('Cancel')}}</button>
+        <button nz-button nzType="primary" (click)="submitEdit()" [disabled]="validateForm.invalid">{{l('Save')}}</button>
+    </ng-template>
+</nz-modal>

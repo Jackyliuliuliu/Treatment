@@ -1,0 +1,314 @@
+<nz-spin class="load" *ngIf="BeamGroupInfoLoading" nzSimple [nzSize]="'large'">
+</nz-spin>
+<div class="beamgroup-view FlexRow" *ngIf="!BeamGroupInfoLoading">
+    <ng-template #templateS let-node>
+        <i class="ant-select-arrow-icon">
+            <svg width="18px" height="18px" viewBox="0 0 18 18">
+                <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+                    <polygon id="icon/drop" fill="#DCE0F2"
+                        transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+                        points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+                </g>
+            </svg>
+        </i>
+    </ng-template>
+    <div class="top-content FlexRow Fill">
+        <div class="ul-box FlexRow Fill">
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel nzHeader="{{l('Basic Info')}}" [nzActive]="this.beamGroupDto!=null">
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Beam Group Name')}}</label>
+                                <div class="right-info Fill" style="width:20px;max-width: 20em; white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">
+                                    <span nz-tooltip  [nzTitle]="this.beamGroupDto?.name">{{this.beamGroupDto?.name}}</span>
+                                </div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Machine')}}</label>
+                                <div class="right-info Fill">
+                                        <span nz-tooltip  [nzTitle]="this.beamGroupDto?.machineName">{{this.beamGroupDto?.machineName}}</span>
+                                    </div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Whether Approve')}}</label>
+                                <div class="right-info Fill">{{this.approveStatus}}
+                                    <div class="right-info Fill" *ngIf="isApproved">
+                                        <span nz-tooltip  [nzTitle]="'this.approver'+':'+'this.approver'">自{{this.approver}} {{this.approver}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Radiation Type')}}</label>
+                                <div class="right-info Fill">
+                                    <span nz-tooltip  [nzTitle]="this.beamGroupDto?.radiationType?.name">{{this.beamGroupDto?.radiationType?.name}}</span>
+                                </div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Technique Protocol')}}</label>
+                                <div class="right-info Fill">
+                                    <span nz-tooltip  [nzTitle]="this.beamGroupDto?.techniqueType?.name">{{this.beamGroupDto?.techniqueType?.name}}</span>
+                                </div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Use Same Tolerance')}}</label>
+                                <div class="right-info Fill">
+                                    {{this.beamGroupDto?.toleranceId ==null ? "否" : "是"}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Description')}}</label>
+                                <div class="right-info Fill">
+                                    <span nz-tooltip [nzTitle]="this.beamGroupDto?.description">{{this.beamGroupDto?.description}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel nzHeader="处方信息"  [nzActive]="true">
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Related Course')}}</label>
+                                <div class="right-info Fill">{{courseName}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Related Prescription')}}</label>
+                                <div class="right-info Fill">{{rxPrescription}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Technique Protocol')}}</label>
+                                <div class="right-info Fill">{{presciptionTechniqueType}}</div>
+                            </div>
+                        </div>
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Target')}}</label>
+                                <div class="right-info Fill">{{target}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">Plan Goal 计划目标</label>
+                                <div class="right-info Fill" *ngIf="this.beamGroupDto?.fractionDose!=null">
+                                    {{this.beamGroupDto?.fractionDose}} * {{this.beamGroupDto?.fractionNumber}} = {{this.beamGroupDto?.totalDose}}
+                                </div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label"></label>
+                                <div class="right-info Fill">
+                                </div>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel nzHeader="{{l('Beam List')}}" [nzActive]="listOfBeam!=null && listOfBeam.length>0">
+                        <div class="common-content-box FlexRow">
+                            <div class="flex-table-div">
+                                <nz-table #headerTable [nzData]="listOfBeam" [nzPageSize]="5">
+                                    <thead>
+                                        <tr>
+                                            <th>{{l('No.')}}</th>
+                                            <th>{{l('Name')}}</th>
+                                            <th class="radiatonType">{{l('Radiation Type')}}</th>
+                                            <th>{{l('Description')}}</th>
+                                            <th class="machineName">{{l('Machine Name')}}</th>
+                                            <th>{{l('Dose Rate(MU/min)')}}</th>
+                                            <th>{{l('MU')}}</th>
+                                            <th style="width: 100px">{{l('Gantry Start(°)')}}</th>
+                                            <th>{{l('Gantry End(°)')}}</th>
+                                            <th>{{l('Tolerance')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of headerTable.data">
+                                            <td><span>{{data.beamNumber}}</span></td>
+                                            <td><span>{{data.beamName}}</span></td>
+                                            <td><span>{{data.radiationType}}</span></td>
+                                            <td><span>{{data.beamDescription}}</span></td>
+                                            <td><span>{{data.machineName}}</span></td>
+                                            <td><span>{{data.doseRate}}</span></td>
+                                            <td><span>{{data.beamMu}}</span></td>
+                                            <td><span>{{data.gantryStart}}</span></td>
+                                            <td><span>{{data.gantryEnd}}</span></td>
+                                            <td><span>{{data.tolerance}}</span></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                            <div class="flex-checkbox-div FlexCol">
+                                <span class="checkbox-import">*</span>
+                                    <label nz-checkbox [ngModel]="isBeamConfirmSelected" class="tms-label-checkbox" [nzDisabled]="isDisEnableCheck" (ngModelChange)="changeBeamConfirmSelected($event)" >
+                                        {{l('Please check after confirmation on beam data')}}
+                                    </label>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel nzHeader="{{l('Set Up Info')}}"  [nzActive]="true">
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Patient Position')}}</label>
+                                <div class="right-info Fill">{{patientPosition}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Patient Setup Label')}}</label>
+                                <div class="right-info Fill">{{patientSetupLable}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Patient Additional Position')}}</label>
+                                <div class="right-info Fill">{{patientAdditionalPosition}}</div>
+                            </div>
+                        </div>
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Patient Setup Number')}}</label>
+                                <div class="right-info Fill">{{patientSetUpNumber}}</div>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel nzHeader="{{l('Referenced Setup Image Sequence')}}" [nzActive]="totolImgNum>0">
+                        <div class="common-content-box FlexCol">
+                            <div class="flex-add-imgae-div FlexCol">
+                                <div class="image-info-div FlexRow">
+                                    <nz-spin class="load" *ngIf="ReferencedSetupImageLoading" nzSimple [nzSize]="'large'"></nz-spin>
+                                    <div class="image-preview-div Fill FlexCol" *ngIf="!ReferencedSetupImageLoading">
+                                        <button class="prev-btn" nz-button nzType="default"
+                                            [disabled]="isLeftBtnEnable"
+                                            (click)="leftClick()">
+                                            <i nz-icon type="left"></i>
+                                        </button>
+                                        <div class="carousel-img-div Fill FlexCol ">
+                                            <img class="carousel-img" [src]="selectedImg"
+                                                *ngIf="selectedImg !== undefined && selectedImg !== null">
+                                        </div>
+                                        <button class="next-btn" nz-button nzType="default"
+                                            [disabled]="isRightBtnEnable"
+                                            (click)="rightClick()">
+                                            <i nz-icon type="right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="img-info"
+                                        *ngIf="selectedImgNum !== undefined && selectedImgNum !== null">
+                                        <span>{{selectedImgNum}}</span>/<span>{{totolImgNum}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Description')}}</label>
+                                <div class="right-info Fill">{{selectedImgDes}}</div>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel nzHeader="{{l('Off Set')}}" [nzActive]="offsetList!=null && offsetList.length>0">
+                        <div class="common-content-box FlexRow">
+                            <div class="flex-table-div">
+                                <nz-table #offSetTable [nzData]="offsetList" [nzPageSize]="5">
+                                    <thead>
+                                        <tr>
+                                            <th>{{l('NO.')}}</th>
+                                            <th>{{l('Isocenter')}}</th>
+                                            <th>{{l('VRT(cm)')}}</th>
+                                            <th>{{l('LNG(cm)')}}</th>
+                                            <th>{{l('LAT(cm)')}}</th>
+                                            <th>{{l('Related Beams')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of offSetTable.data">
+                                            <td><span>{{data.offsetNum}}</span></td>
+                                            <td><span nz-tooltip [nzTitle]="data.isoCenter">{{data.isoCenter}}</span>
+                                            </td>
+                                            <td> {{data.VRT}}</td>
+                                            <td> {{data.LNG}}</td>
+                                            <td> {{data.LAT}}</td>
+                                            <td><span nz-tooltip [nzTitle]="data.relatedName">{{data.relatedName}}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </nz-table>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel [nzActive]="fixationDeviceTotalImgNum>0" [nzShowArrow]="true" nzHeader="{{l('Fixation Device Sequence')}}"
+                    id="components-anchor-sequence-device-fixation">
+                    <div class="common-content-box FlexCol">
+                            <div class="flex-add-imgae-div FlexCol" >
+                                <div class="image-info-div FlexRow">
+                                    <nz-spin class="load"  *ngIf="FixationDeviceLoading" nzSimple [nzSize]="'large'"></nz-spin>
+                                    <div class="image-preview-div Fill FlexCol" *ngIf="!FixationDeviceLoading">
+                                        <button class="prev-btn" nz-button nzType="default" [disabled]="isfixationDeviceLeftBtnEnable" (click)="fixationDeviceImageLeftClick()">
+                                            <i nz-icon type="left"></i>
+                                        </button>
+                                        <div class="carousel-img-div Fill FlexCol " >
+                                            <img class="carousel-img" [src]="slecetedFixationDeviceImg" *ngIf="slecetedFixationDeviceImg !== undefined && slecetedFixationDeviceImg !== null">
+                                        </div>
+                                        <button class="next-btn" nz-button nzType="default" [disabled]="isfixationDeviceRightBtnEnable" (click)="fixationDeviceImageRightClick()">
+                                            <i nz-icon type="right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="img-info" *ngIf="slecetedFixationDeviceImgNum !== undefined && slecetedFixationDeviceImgNum !== null">
+                                        <span>{{slecetedFixationDeviceImgNum}}</span>/<span>{{fixationDeviceTotalImgNum}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label">{{l('Description')}}</label>
+                                <div class="right-info Fill">{{selectedfixationDeviceImgDes}}</div>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse>
+            </div>
+            <div class="common-info-li">
+                <nz-collapse [nzBordered]="false">
+                    <nz-collapse-panel [nzActive]="this.beamGroupDto?.isGating" [nzShowArrow]="false" nzHeader="{{l('Respiratory Gating')}}"
+                        id="components-anchor-synchronization-motion">
+                        <div class="common-info-row FlexCol">
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label" aria-disabled="true" >{{l('Is Gating')}}</label>
+                                <div class="right-info Fill">{{this.beamGroupDto?.isGating ? "是":"否"}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill" *ngIf="this.beamGroupDto?.isGating">
+                                <label class="left-label">{{l('Gating Model')}}</label>
+                                <div class="right-info Fill">{{selectedGatingModel}}</div>
+                            </div>
+                            <div class="common-info-col FlexCol Fill">
+                                <label class="left-label"></label>
+                                <div class="right-info Fill"></div>
+                            </div>
+                        </div>
+                    </nz-collapse-panel>
+                </nz-collapse> 
+            </div>
+        </div>
+    </div>
+</div>

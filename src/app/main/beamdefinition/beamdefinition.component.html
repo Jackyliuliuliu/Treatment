@@ -1,0 +1,183 @@
+<div class="Fill FlexCol beam-definition">
+    <div class="left-menu FlexRow">
+        <app-beamboard *ngIf="!isBeamSelected" [patientId]="patientId" [selectedNode]="selectedNode" [isEditPermission]="isEditPermission"
+            (AddedBeamGroup)="onAddedBeamGroup($event)" (Delete)="onDelete($event)" (Copy)="onCopy($event)" [isDeletePermission]="isDeletePermission"
+            (AfterActionToRefreshTree)="AfterActionToRefreshTree($event)" [beamGroupList]="beamGroupTreeList" >
+        </app-beamboard>
+        <app-beamactions *ngIf="isBeamSelected" [selectedNode]="selectedNode" [beamGroupList]="beamGroupTreeList"
+            (AfterActionToRefreshTree)="AfterActionToRefreshTree($event)" [isDeletePermission]="isDeletePermission"
+            [isEditPermission]="isEditPermission"
+            ></app-beamactions>
+        <div class="tree-box Fill">
+            <nz-sider class="box" [nzWidth]="240">
+                <!-- <tree-root class="grouptree" #treeCom [(state)]="state" [nodes]="beamGroupTreeList" [options]="options"
+                                (nodeActivate)="onNodeActivateEvent($event)">
+                                <ng-template #treeNodeTemplate let-node let-index="index">
+                                  <span class="treeItem">
+                                    <ng-container>
+                                      <span>{{ node.data.name }}</span>
+                                      <div class="treeIcon">
+                                        <span *ngIf="node.data.isGroupActived"><img
+                                            src="../../../../assets/images/icon_active.png" /></span>
+                                        <span *ngIf="node.data.isApprove"><img src="../../../../assets/images/icon_approve.png" /></span>
+                                      </div>
+                                    </ng-container>
+                                  </span>
+                                </ng-template>
+                              </tree-root> -->
+                <tree-root class="grouptree" #treeCom [nodes]="beamGroupTreeList" [(state)]="state" [options]="options"
+                    (nodeActivate)="onNodeActivateEvent($event)">
+                    <ng-template #treeNodeWrapperTemplate let-node let-index="index">
+                        <div class="node-wrapper" [style.padding-left]="node.getNodePadding()">
+                            <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive"
+                                [class.node-content-wrapper-focused]="node.isFocused"
+                                (click)="node.mouseAction('click', $event)"
+                                (dblclick)="node.mouseAction('dblClick', $event)"
+                                (contextmenu)="node.mouseAction('contextMenu', $event)" (treeDrop)="node.onDrop($event)"
+                                [treeAllowDrop]="node.allowDrop" [treeDrag]="node" [treeDragEnabled]="node.allowDrag()">
+                                <tree-node-expander [node]="node"></tree-node-expander>
+                                <tree-node-content class="tree-node-content" [node]="node" [index]="index">
+                                </tree-node-content>
+                                <div class="treeIcon">
+                                    <span class="span-icon_left" *ngIf="node.data.isGroupActived" nz-tooltip
+                                        [nzTitle]="activeTooltip">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24">
+                                            <g id="icon/jihuo" stroke="none" stroke-width="1" fill="none"
+                                                fill-rule="evenodd">
+                                                <g id="Group" transform="translate(1.000000, 7.000000)"
+                                                    fill-rule="nonzero">
+                                                    <rect id="Rectangle" fill="#47BE68" x="0" y="0" width="22"
+                                                        height="11" rx="5.5"></rect>
+                                                    <path
+                                                        d="M5.5,1.1 C3.0699471,1.1 1.1,3.0699471 1.1,5.5 C1.1,7.9300529 3.0699471,9.9 5.5,9.9 L16.5,9.9 C18.9300529,9.9 20.9,7.9300529 20.9,5.5 C20.9,3.0699471 18.9300529,1.1 16.5,1.1 L5.5,1.1 Z M5.5,0 L16.5,0 C19.5375661,0 22,2.46243388 22,5.5 C22,8.53756612 19.5375661,11 16.5,11 L5.5,11 C2.46243388,11 0,8.53756612 0,5.5 C0,2.46243388 2.46243388,0 5.5,0 Z"
+                                                        id="Rectangle-Copy-3" fill="#FFFFFF"></path>
+                                                    <circle id="Oval-Copy" fill="#FFFFFF" cx="16.5" cy="5.5" r="3.3">
+                                                    </circle>
+                                                    <polygon id="Path-10-Copy" fill="#FFFFFF"
+                                                        points="10.5951484 2.487716 11.4048516 3.23228339 6.5283451 8.53539418 3.94082908 4.61109046 4.85917092 4.00557559 6.6716549 6.75444267">
+                                                    </polygon>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <ng-template #activeTooltip>
+                                            <div class="tooltip-template">
+                                                <p class="middle-text">{{l('Active')}}</p>
+                                            </div>
+                                        </ng-template>
+                                    </span>
+                                    <span class="span-icon_left" *ngIf="node.data.isGroupActived===false" nz-tooltip
+                                        [nzTitle]="inactiveTooltip">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24">
+                                            <g id="icon/weijihuo" stroke="none" stroke-width="1" fill="none"
+                                                fill-rule="evenodd">
+                                                <g id="Group" transform="translate(1.000000, 7.000000)"
+                                                    fill-rule="nonzero">
+                                                    <rect id="Rectangle" fill="#E33D3D" x="0" y="0" width="22"
+                                                        height="11" rx="5.5"></rect>
+                                                    <path
+                                                        d="M5.5,1.1 C3.0699471,1.1 1.1,3.0699471 1.1,5.5 C1.1,7.9300529 3.0699471,9.9 5.5,9.9 L16.5,9.9 C18.9300529,9.9 20.9,7.9300529 20.9,5.5 C20.9,3.0699471 18.9300529,1.1 16.5,1.1 L5.5,1.1 Z M5.5,0 L16.5,0 C19.5375661,0 22,2.46243388 22,5.5 C22,8.53756612 19.5375661,11 16.5,11 L5.5,11 C2.46243388,11 0,8.53756612 0,5.5 C0,2.46243388 2.46243388,0 5.5,0 Z"
+                                                        id="Rectangle" fill="#FFFFFF"></path>
+                                                    <circle id="Oval" fill="#FFFFFF" cx="5.5" cy="5.5" r="3.3"></circle>
+                                                    <path
+                                                        d="M15.2694824,5.14166496 L17.3389648,3.07218254 L18.1167823,3.85 L16.0472999,5.91948242 L18.1167823,7.98896484 L17.3389648,8.7667823 L15.2694824,6.69729988 L13.2,8.7667823 L12.4221825,7.98896484 L14.491665,5.91948242 L12.4221825,3.85 L13.2,3.07218254 L15.2694824,5.14166496 Z"
+                                                        id="Combined-Shape" fill="#FFFFFF"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <ng-template #inactiveTooltip>
+                                            <div class="tooltip-template">
+                                                <p class="middle-text">{{l('InActive')}}</p>
+                                            </div>
+                                        </ng-template>
+                                    </span>
+                                    <span class="span-icon_left" *ngIf="node.data.isApprove" nz-tooltip
+                                        [nzTitle]="approveTooltip">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24">
+                                            <g id="icon/pizhun2" stroke="none" stroke-width="1" fill="none"
+                                                fill-rule="evenodd">
+                                                <g id="suo" transform="translate(5.000000, 3.000000)"
+                                                    fill="currentColor">
+                                                    <path
+                                                        d="M13.058296,6.61739944 L11.6143498,6.61739944 L11.6143498,5.32422825 C11.6237668,5.18952292 11.6300448,5.05481759 11.6300448,4.91674462 C11.6300448,2.20243218 9.57713004,0 7.0470852,0 C4.51704036,0 2.46412556,2.20243218 2.46412556,4.91674462 C2.46412556,5.05481759 2.47040359,5.18952292 2.47982063,5.32422825 L2.47982063,6.61739944 L0.941704036,6.61739944 C0.423766816,6.61739944 0,7.07202993 0,7.62768943 L0,16.98971 C0,17.5453695 0.423766816,18 0.941704036,18 L13.058296,18 C13.5762332,18 14,17.5453695 14,16.98971 L14,7.62768943 C14,7.07202993 13.5762332,6.61739944 13.058296,6.61739944 Z M7.94170404,12.4333022 L7.94170404,14.7333957 L6.34080717,14.7333957 L6.34080717,12.4568756 C5.96098655,12.1840973 5.71300448,11.7227315 5.71300448,11.1973807 C5.71300448,10.35884 6.34394619,9.68194574 7.12556054,9.68194574 C7.90717489,9.68194574 8.53811659,10.35884 8.53811659,11.1973807 C8.53811659,11.709261 8.30269058,12.1605239 7.94170404,12.4333022 Z M9.91928251,6.61739944 L4.14349776,6.61739944 L4.14349776,4.86623012 C4.17802691,3.1857811 5.45560538,1.83536015 7.03139013,1.83536015 C8.60717489,1.83536015 9.88475336,3.1857811 9.91928251,4.86623012 L9.91928251,6.61739944 L9.91928251,6.61739944 Z"
+                                                        id="Shape"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <ng-template #approveTooltip>
+                                            <div class="tooltip-template">
+                                                <p class="middle-text">{{l('Approve')}}</p>
+                                            </div>
+                                        </ng-template>
+                                    </span>
+                                    <span class="span-icon_left" *ngIf="node.data.isApprove===false" nz-tooltip
+                                        [nzTitle]="unapprovedTooltip">
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24">
+                                            <g id="icon/weipizhun2" stroke="none" stroke-width="1" fill="none"
+                                                fill-rule="evenodd">
+                                                <g id="icon/bukejian-copy-5" transform="translate(5.000000, 3.000000)"
+                                                    fill="currentColor">
+                                                    <path
+                                                        d="M11.6143498,6.59354537 L11.6143498,6.61739944 L13.058296,6.61739944 C13.5762332,6.61739944 14,7.07202993 14,7.62768943 L14,16.98971 C14,17.5453695 13.5762332,18 13.058296,18 L0.941704036,18 C0.423766816,18 -6.90114632e-13,17.5453695 -6.90114632e-13,16.98971 L-6.90114632e-13,7.62768943 C-6.90114632e-13,7.07202993 0.423766816,6.61739944 0.941704036,6.61739944 L2.47982063,6.61739944 L2.47982063,5.32422825 C2.47040359,5.18952292 2.46412556,5.05481759 2.46412556,4.91674462 C2.46412556,2.20243218 4.51704036,-2.13162821e-14 7.0470852,-2.13162821e-14 C9.14892029,-2.13162821e-14 10.9214661,1.51999928 11.4612642,3.59073901 L9.6351084,3.59073901 C9.16894027,2.55196796 8.17928755,1.83536015 7.03139013,1.83536015 C5.45560538,1.83536015 4.17802691,3.1857811 4.14349776,4.86623012 L4.14349776,6.61739944 L9.91928251,6.61739944 L9.91928251,6.59354537 L11.6143498,6.59354537 Z M7.94170404,12.4333022 C8.30269058,12.1605239 8.53811659,11.709261 8.53811659,11.1973807 C8.53811659,10.35884 7.90717489,9.68194574 7.12556054,9.68194574 C6.34394619,9.68194574 5.71300448,10.35884 5.71300448,11.1973807 C5.71300448,11.7227315 5.96098655,12.1840973 6.34080717,12.4568756 L6.34080717,14.7333957 L7.94170404,14.7333957 L7.94170404,12.4333022 Z"
+                                                        id="Combined-Shape"></path>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <ng-template #unapprovedTooltip>
+                                            <div class="tooltip-template">
+                                                <p class="middle-text">{{l('UnApproved')}}</p>
+                                            </div>
+                                        </ng-template>
+                                    </span>
+                                    <!-- <span class="span-icon" *ngIf="node.data.isMachineValid === false" nz-tooltip [nzTitle]="machineUnvalidTooltip">
+                                                            <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                                                <g id="icon/bukejian-copy-8" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                    <g id="biaoji2" transform="translate(5.000000, 4.000000)" fill="currentColor">
+                                                                        <path
+                                                                            d="M8.51397779,1.42725184 C7.57353633,0.508938419 6.32318336,0.00321691176 4.99319936,0.00321691176 C3.66321536,0.00321691176 2.41283886,0.508961397 1.47242093,1.42725184 C0.53197948,2.34556526 0.0140719127,3.56649816 0.0140719127,4.86518842 C0.0140719127,6.16387868 0.532003012,7.38483456 1.47242093,8.303125 C2.23828125,9.05096507 3.20971386,9.52511489 4.26230704,9.6754136 L4.26230704,12.9212776 L5.72411521,12.9212776 L5.72411521,9.6754136 C6.77668486,9.52513787 7.74811747,9.05098805 8.51400132,8.303125 C9.45441924,7.38481158 9.97232681,6.1638557 9.97232681,4.86518842 C9.97232681,3.56649816 9.45439571,2.34556526 8.51397779,1.42725184 Z M7.2720256,5.80519301 C7.24084318,5.87717037 7.20608491,5.94762014 7.16787462,6.01629136 C6.99690215,6.32356598 6.7598261,6.59105206 6.47293863,6.80036765 C6.40933401,6.84680205 6.34348763,6.8902342 6.27562594,6.93051471 C6.20744604,6.97097832 6.13729409,7.00818512 6.06541792,7.04200368 C5.80783792,7.16324861 5.53054542,7.23961886 5.24604669,7.26767004 C5.16290945,7.27591912 5.07854857,7.28014706 4.99317583,7.28014706 C4.90780309,7.28014706 4.82344221,7.27591912 4.74030497,7.26767004 C4.45580623,7.23961886 4.17851374,7.16324861 3.92093373,7.04200368 C3.70587522,6.94070502 3.50692502,6.80961097 3.33024285,6.65278033 C3.18356069,6.52260477 3.05333861,6.37577597 2.94234752,6.2154182 C2.8529392,6.0861952 2.77657467,5.94881052 2.71432605,5.80519301 C2.58918486,5.51626838 2.51997835,5.19862132 2.51997835,4.86516544 C2.51997835,4.53173254 2.58918486,4.2140625 2.71432605,3.92513787 C2.73759883,3.87141544 2.76343656,3.81902574 2.79049793,3.76737132 C2.80641541,3.73694501 2.82299326,3.70685243 2.84022026,3.67711397 C2.87231739,3.62176011 2.90603822,3.56744026 2.94237105,3.51491268 C3.05332415,3.35452647 3.18354997,3.20769345 3.33026638,3.07755055 C3.56673515,2.8674865 3.84267783,2.70419345 4.14281344,2.59671415 C4.33547456,2.52787943 4.53619634,2.48284546 4.74030497,2.46266085 C4.82344221,2.45441176 4.90780309,2.45018382 4.99317583,2.45018382 C5.07854857,2.45018382 5.16290945,2.45441176 5.24604669,2.46266085 C5.45015179,2.48286637 5.65087093,2.52789975 5.84353822,2.59671415 C6.14367824,2.70418449 6.4196226,2.86747854 6.65608528,3.07755055 C6.80277937,3.20771473 6.93300276,3.354545 7.04398061,3.51491268 C7.08031344,3.56741728 7.11403426,3.62176011 7.1461314,3.67711397 C7.16336327,3.7068498 7.17994118,3.73694248 7.19585373,3.76737132 C7.2229151,3.81902574 7.24875282,3.87141544 7.2720256,3.92513787 C7.39716679,4.2140625 7.46637331,4.53170956 7.46637331,4.86516544 C7.46637331,5.19862132 7.39716679,5.51629136 7.2720256,5.80519301 L7.2720256,5.80519301 Z"
+                                                                            id="Shape"></path>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                            <ng-template #machineUnvalidTooltip>
+                                                                <div class="tooltip-template">
+                                                                    <p class="middle-text">{{l('Machine Unvalid')}}</p>
+                                                                </div>
+                                                            </ng-template>
+                                                        </span> -->
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </tree-root>
+            </nz-sider>
+        </div>
+    </div>
+    <div class="right-content Fill FlexRow">
+        <div class="top-toolbar FlexCol">
+            <div class="Fill left-toolbar FlexCol">
+                <app-beambar [beamGroupNode]="selectedNode"  [isEditPermission]="isEditPermission"
+                        (BeamGroupApproveChangeClickEvent)="onBeamGroupApproveChangeClickEvent($event)" [nodeId]="nodeid" 
+                        [beamGetBeamGroupID]="dgId"  (EditBeam)="onEditBeam($event)" [beamGroupList]="beamGroupTreeList"
+                        [isBeamSelected]="isBeamSelected"  (EditBeamGroup)="onEditBeamGroup($event)" [patientID]="patientId"
+                        (BeamGroupActiveChangeClickEvent)="onBeamGroupActiveChangeClickEventEvent($event)"
+                        (EditBeamImage)="onEditBeamImage($event)" (EditBeamGroupPositionImaging)="onEditBeamGroupPositionImaging($event)"
+                        (EditBeamGroupDeviceSequence)="onEditBeamGroupDeviceSequence($event)"  (EditOffset)="onEditOffset($event)"
+                        (EditBEVConfirm)="onEditBEV($event)"></app-beambar>
+                
+            </div>
+            <div class="header-patient-card">
+                <patientCard-component></patientCard-component>
+            </div>
+        </div>
+        <div class="bottom-info Fill">
+            <app-beamgroup #beamGroup [beamGroupID]="nodeid" [patientID]="patientId" *ngIf="!isBeamSelected"
+                (BeamGroupApproveChangeEvent)="onBeamGroupApproveChangeEvent($event)" (BeamGroupActiveChangeEvent)="onBeamGroupActiveChangeEvent($event)">
+            </app-beamgroup>
+            <app-beamparameter #beamComponent [id]="nodeid" [beamGroupList]="beamGroupTreeList" [beamGroupId]="dgId"  *ngIf="isBeamSelected">
+            </app-beamparameter>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,19 @@
+.selectModes{
+     width:100%;
+     height:100%;
+}
+.blockLabel{
+     display:block;
+}
+.errAlerk{
+     color: #E36732;
+}
+.checkbox-import {
+     flex: 0 0 17px;
+     width: 17px;
+     height: 20px;
+     line-height: 20px;
+     color: #E36732;
+     font-size: 14px;
+     text-align: center;
+ }

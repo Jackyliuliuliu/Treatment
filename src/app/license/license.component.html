@@ -1,0 +1,17 @@
+<nz-modal nzWidth="560px" nzWrapClassName="vertical-center-modal" id="licenseModal" [(nzVisible)]="isVisible"
+  nzTitle="License" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" nzMaskClosable = "false">
+  <nz-table #allLicenseTable [nzData]="allLicense" [nzShowPagination]=false>
+    <thead>
+      <tr>
+        <th>产品名称</th>
+        <th>过期日期(yyyy/MM/dd)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let singleLicense of allLicenseTable.data">
+        <td>{{singleLicense.productName}}</td>
+        <td>{{singleLicense.expireTime}}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

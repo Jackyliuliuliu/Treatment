@@ -1,0 +1,24 @@
+<canvas name="mlcControl" width="400px" height="400px" id ="mlcControl" #mlcControl></canvas>
+<div>
+    
+    <div>
+      <div nz-col nzSpan="10">
+          <nz-input-group class="controlPointIndexGroup">
+            <input type="number" nz-input [(ngModel)]="controlPointIndex" min="0" max="{{controlPointTotalNum}}" (ngModelChange)="onChecked($event)"  class="controlPointInput">
+            <label style="color: white;">{{controlPointTotalNum}}</label>
+            <span  class="errAlerk">{{this.rangeAlert}}</span>
+          </nz-input-group>
+      </div>
+      <div nz-col nzSpan="14">
+          <nz-button-group>
+            <button nz-button nzType="default" (click)="firstControlPoint()"><<</button>
+            <button nz-button nzType="default" (click)="forwardControlPoint()"><</button>
+            <button nz-button nzType="default" (click)="nextControlPoint()">></button>
+            <button nz-button nzType="default" (click)="lastControlPoint()">>></button>
+            <button nzType="primary" (click)="editAperture()"> {{l('Leaf Pairs')}}</button>
+          </nz-button-group>
+      </div>
+    </div>
+</div>
+
+

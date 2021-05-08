@@ -1,0 +1,23 @@
+<div class="menu-box FlexCol">
+    <div class="menu-icon">
+        <app-createbeamgroup [patientId]="patientId" (addedBeamGroup)="onAddedBeamGroup($event)" [isEditPermission]="isEditPermission"></app-createbeamgroup>
+    </div>
+    <div class="menu-icon">
+        <app-addbeam [selectedNode]="selectedNode" [beamGroupList]="beamGroupList"
+            (AfterActionToRefreshTree)="AfterActionToRefreshTreeTransfer($event)"  [isEditPermission]="isEditPermission"></app-addbeam>
+    </div>
+    <div class="menu-icon">
+        <app-createtreatmentsession [selectNode]="selectedNode" [isEditPermission]="isEditPermission"
+        (AfterActionToRefreshTree)="AfterActionToRefreshTreeTransfer($event)"></app-createtreatmentsession>
+    </div>
+    <div class="menu-icon">
+        <app-deletebeamgroup (confirmaction)="onDeleteConfirm($event)" [selectNode]="selectedNode" [isDeletePermission]="isDeletePermission"
+        (AfterActionToRefreshTree)="AfterActionToRefreshTreeTransfer($event)"></app-deletebeamgroup>
+    </div>
+    <!-- <div class="menu-icon">
+        <app-exportmodal></app-exportmodal>
+    </div> -->
+    <!-- <div class="menu-icon">
+        <app-copymodal></app-copymodal>
+    </div> -->
+</div>

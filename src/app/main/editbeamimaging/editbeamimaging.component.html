@@ -1,0 +1,177 @@
+<div class="tool-box">
+    <button class="tool-icon" (click)="editImaging()" [disabled]="!isEditPermission"><img src="../../../../assets/svg/edit_imaging.svg" /></button>
+    <p class="text">编辑成像</p>
+</div>
+<nz-modal [nzVisible]="isEditBeamImaging" nzMaskClosable="false" nzTitle="编辑成像" nzWidth="560px"
+    nzWrapClassName="vertical-center-modal" (nzOnCancel)="cancelEdit()" [nzFooter]="modalFooter">
+    <form [formGroup]="beamImagingForm">
+        <div class="common-form-box FlexRow">
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                   <label class="form-label-checkbox" nz-checkbox  formControlName="imagingPositionAble" >可用</label>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true" >{{l('RT Image Position X(cm)')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="imagingPositionX">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','imagingPositionX')" >精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','imagingPositionX')">必填项</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('RT Image Position Y(cm)')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="imagingPositionY">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','imagingPositionY')">精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','imagingPositionY')">必填项</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('RT Image SID(cm)')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="rtImagingSid">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','rtImagingSid')">精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','rtImagingSid')">必填项</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('max','rtImagingSid')">最大值155</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('min','rtImagingSid')">最小值95</span>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble">
+                <div class="common-form-col Fill">
+                    <label class="form-label-checkbox" nz-checkbox  formControlName="protralPreAble">{{l('Protral Pre')}}</label>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble && protralPreAble">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">MU</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="prePortalMu">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','prePortalMu')">精度为小数点后两位的正数</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true"></nz-form-label>
+                        <label class="form-label-checkbox blockLabel" nz-checkbox  formControlName="prePortalDoubleExposure">{{l('double exposure')}}</label>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble && protralPreAble && prePortalDoubleExposure">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('radiation mode')}}</nz-form-label>
+                        <nz-form-control>
+                            <select class="selectItem selectModes" formControlName="prePortalRaditionMode">
+                                <option *ngFor="let option of beamModeList" value="{{option}}" label="{{option}}"></option>
+                            </select>
+                            <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','prePortalRaditionMode')">必填项</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Delta(cm)')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="prePortalDelta">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','prePortalDelta')">精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','prePortalDelta')">必填项</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Open MU')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="prePortalOpenmu">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','prePortalOpenmu')">精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','prePortalOpenmu')">必填项</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('range','prePortalOpenmu')">范围为[0,2]</span>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble">
+                <div class="common-form-col Fill">
+                    <label class="form-label-checkbox" nz-checkbox  formControlName="protralDurAble">{{l('Protral During')}}</label>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble && protralDurAble">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">MU</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="duringPortalMu">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','duringPortalMu')">精度为小数点后两位的正数</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble">
+                <div class="common-form-col Fill">
+                    <label class="form-label-checkbox" nz-checkbox  formControlName="protralPostAble">{{l('Protral Post')}}</label>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble && protralPostAble">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">MU</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="postPortalMu">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','postPortalMu')">精度为小数点后两位的正数</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true"></nz-form-label>
+                        <label class="form-label-checkbox blockLabel" nz-checkbox  formControlName="postPortalDoubleExposure">{{l('double exposure')}}</label>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="imagingPositionAble && protralPostAble && postPortalDoubleExposure">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('radiation mode')}}</nz-form-label>
+                        <nz-form-control>
+                            <select class="selectItem  selectModes" formControlName="postPortalRaditionMode">
+                                <option *ngFor="let option of beamModeList" value="{{option}}" label="{{option}}"></option>
+                            </select>
+                            <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','postPortalRaditionMode')">必填项</span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Delta(cm)')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="postPortalDelta">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','postPortalDelta')">精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','postPortalDelta')">必填项</span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Open MU')}}</nz-form-label>
+                        <input nz-input NumberOnly type="number" formControlName="postPortalOpenmu">
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('precisionTwo','postPortalOpenmu')">精度为小数点后两位的正数</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('required','postPortalOpenmu')">必填项</span>
+                        <span class="errAlerk" *ngIf="beamImagingForm.hasError('range','postPortalOpenmu')">范围为[0,2]</span>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="cancelEdit()">{{l('Cancel')}}</button>
+        <button nz-button nzType="primary" *ngIf="this.beamImagingForm.valid" (click)="submitEdit()" >{{l('Save')}}</button>
+        <button nz-button nzType="primary" *ngIf="this.beamImagingForm.invalid" disabled >{{l('Save')}}</button>
+    </ng-template>
+</nz-modal>
+

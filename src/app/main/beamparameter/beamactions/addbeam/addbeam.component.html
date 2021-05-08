@@ -1,0 +1,67 @@
+<a nz-tooltip class="menu-icon" 
+[nzTitle]="addBeamTooltip" 
+nzPlacement="bottomLeft" 
+(click)="onAddBeamClick()"
+[class.disable] = "isDisable_addbeam">
+      <img class="menu-icon-img" src="../../../../../assets/svg/icon_addbeam.svg" />
+      <ng-template #addBeamTooltip>
+            <div class="tooltip-template">
+                  <p class="middle-text">{{l('Addbeam')}}</p>
+            </div>
+      </ng-template>
+</a>
+<nz-modal [nzVisible]="isVisible_addbeam" nzMaskClosable="false" [nzTitle]="l('Add Beam')" nzWidth="560px"
+      nzWrapClassName="vertical-center-modal" (nzOnCancel)="AddbeamhandleCancel()" [nzFooter]="modalFooter">
+      <form nz-form [formGroup]="form">
+            <div class="common-form-box FlexRow">
+                  <div class="common-form-row">
+                        <nz-row>
+                              <nz-form-item>
+                                    <nz-form-label nzRequired nzNoColon="true">{{l('beamName')}}</nz-form-label>
+                                    <nz-form-control>
+                                          <input nz-input formControlName="beamName"
+                                                [class.error]="form.controls.beamName.invalid && form.controls.beamName.touched">
+                                          <span class="errAlerk" *ngIf="form.get('beamName').hasError('required')">必填项</span>
+                                          <span class="errAlerk" *ngIf="form.get('beamName').hasError('maxLength')">最大长度64</span>
+                                          <span class="errAlerk" *ngIf="form.get('beamName').hasError('minLength')">最小长度1</span>
+                                          <span class="errAlerk" *ngIf="form.get('beamName').hasError('check')">禁止输入反斜杠\</span>
+                                    </nz-form-control>
+                              </nz-form-item>
+                        </nz-row>
+                  </div>
+                  <div class="common-form-row">
+                        <nz-row>
+                              <nz-form-item>
+                                    <nz-form-label nzRequired nzNoColon="true">{{l('ssd(cm)')}}</nz-form-label>
+                                    <nz-form-control>
+                                          <input nz-input formControlName="ssd" NumberOnly type="number"
+                                                [class.error]="form.controls.ssd.invalid && form.controls.ssd.touched">
+                                          <span class="errAlerk" *ngIf="form.get('ssd').hasError('required')">必填项</span>
+                                          <span class="errAlerk" *ngIf="form.get('ssd').hasError('max')">最大值150</span>
+                                          <span class="errAlerk" *ngIf="form.get('ssd').hasError('min')">最小值50</span>
+                                          <span class="errAlerk" *ngIf="form.get('ssd').hasError('precisionOne')">精度保留小数点后一位</span>
+                                    </nz-form-control>
+                              </nz-form-item>
+                        </nz-row>
+                  </div>
+                  <div class="common-form-row">
+                        <nz-row>
+                              <nz-form-item>
+                                    <nz-form-label nzNoColon="true">{{l('Description')}}</nz-form-label>
+                                    <nz-form-control>
+                                          <input nz-input formControlName="beamDescription"
+                                                [class.error]="form.controls.beamDescription.invalid && form.controls.beamDescription.touched">
+                                          <span class="errAlerk" *ngIf="form.get('beamDescription').hasError('maxLength')">最大长度64</span>
+                                          <span class="errAlerk" *ngIf="form.get('beamDescription').hasError('check')">禁止输入反斜杠\</span>
+                                    </nz-form-control>
+                              </nz-form-item>
+                        </nz-row>
+                  </div>
+            </div>
+      </form>
+      <ng-template #modalFooter>
+            <button nz-button nzType="default" (click)="AddbeamhandleCancel()">{{l('Cancel')}}</button>
+            <button [disabled]="form.invalid" nz-button nzType="primary"
+                  (click)="AddbeamhandleOk()">{{l('Save')}}</button>
+      </ng-template>
+</nz-modal>

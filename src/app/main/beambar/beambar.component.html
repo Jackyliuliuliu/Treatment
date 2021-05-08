@@ -1,0 +1,68 @@
+<div class="Fill left-toolbar FlexCol" *ngIf="!isBeamSelected">
+    <div class="tool-box">
+        <button class="tool-icon" (click)="printClick()" nzType="default" [disabled]="!isPrintPermission">
+            <img src="../../../../assets/svg/icon_dayin.svg" /></button>
+        <p class="text">{{l('Print')}}</p> 
+    </div>
+    <div class="tool-box">
+        <button class="tool-icon" (click)="activeBeamgroupClick()" [disabled]="!isActivePermission">
+            <img src="../../../../assets/svg/icon_jihuo2.svg" /></button>
+        <p class="text">{{l('Active')}}</p>
+    </div>
+    <div class="tool-box">
+        <button class="tool-icon" (click)="unActiveBeamgroupClick()" [disabled]="!isActivePermission">
+            <img src="../../../../assets/svg/icon_weijihuo2.svg" /></button>
+        <p class="text">{{l('InActive')}}</p>
+    </div>
+    <div class="tool-box">
+        <button class="tool-icon" (click)="approveBeamGroupClick()" [disabled]="!isApprovePermission">
+            <img src="../../../../assets/svg/icon_pizhun2.svg" /></button>
+        <p class="text">{{l('Approve')}}</p>
+    </div>
+    <div class="tool-box">
+        <button class="tool-icon" (click)="unApproveBeamGroupClick()" [disabled]="!isApprovePermission">
+            <img src="../../../../assets/svg/icon_weipizhun2.svg" /></button>
+        <p class="text">{{l('Unapprove')}}</p>
+    </div>
+    <div class="tool-box">
+        <app-editbeamgroup  (confirmactionBeamgroup)="onEditBeamGroupConfirm($event)" [isEditPermission]="isEditPermission"
+        [beamGroupID]="nodeId" [patientID]="patientID" [beamGroupList]="beamGroupList" [beamGroupNode]="beamGroupNode"></app-editbeamgroup>
+    </div>
+
+    <div class="tool-box">
+        <app-editoffest  (confirmactionOffset)="onEditOffset($event)" [isEditPermission]="isEditPermission"
+        [beamGroupID]="nodeId" [patientID]="patientID" [beamGroupList]="beamGroupList" [beamGroupNode]="beamGroupNode"></app-editoffest>
+    </div>
+    
+</div>
+
+<ng-template #templateS let-node>
+    <i class="ant-select-arrow-icon">
+        <svg width="18px" height="18px" viewBox="0 0 18 18">
+            <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+                <polygon id="icon/drop" fill="#DCE0F2"
+                    transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+                    points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+            </g>
+        </svg>
+    </i>
+</ng-template>
+<div *ngIf="isBeamSelected" class="Fill left-toolbar FlexCol">
+    <app-editbeam  (confirmaction)="onEditBeamConfirm($event)"  [isEditPermission]="isEditPermission"
+        [beamID]="nodeId" [beamGroupID]="beamGetBeamGroupID" [patientID]="patientID" [beamGroupList]="beamGroupList"></app-editbeam>
+
+    <app-editbev [beamId]="nodeId" [beamGroupID]="beamGetBeamGroupID" [beamGroupList]="beamGroupList" [isEditPermission]="isEditPermission"
+    (editBEVConfirm)="onEditBEVConfirm($event)">
+    </app-editbev>
+    
+    <app-editbeamimaging [beamId]="nodeId" [beamGroupID]="beamGetBeamGroupID" [beamGroupList]="beamGroupList" [isEditPermission]="isEditPermission"
+    (confirmaction)="onEditBeamImageConfirm($event)">       
+    </app-editbeamimaging>
+    
+    <div class="tool-box">
+        <button class="tool-icon" (click)="editAccessory()"><img src="../../../../assets/svg/edit_ accessory.svg" /></button>
+        <p class="text">编辑Acessory</p>
+    </div>
+</div>
+

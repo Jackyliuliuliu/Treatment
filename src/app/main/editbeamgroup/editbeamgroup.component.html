@@ -1,0 +1,195 @@
+
+<button class="tool-icon" (click)="editBeamGroup()" [disabled]="!isEditPermission"><img src="../../../../assets/svg/edit_beam.svg" /></button>
+<p class="text">编辑射野组</p>
+
+ <nz-modal [nzVisible]="isEditBeamgroup" nzMaskClosable="false" nzTitle="编辑射野组" nzWidth="560px"
+    nzWrapClassName="vertical-center-modal" (nzOnCancel)="cancelEditBeamgroup()" [nzFooter]="modalFooter">
+    <form nz-form [formGroup]="beamGroupForm">
+        <div class="common-form-box FlexRow">
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Beam Group Name')}}</nz-form-label>
+                        <input nz-input formControlName="beamgroupname" />
+                        <span *ngIf="FormErrors.beamgroupname" style="color: #E36732;">
+                            {{FormErrors.beamgroupname}}
+                        </span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill" *ngIf="isTmsCreated">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Machine')}}</nz-form-label>
+                        <select  class="selectItem" formControlName="machine" >
+                            <option *ngFor="let machineoption of machineList">{{machineoption.machineName}}</option>
+                        </select>
+                        <span *ngIf="FormErrors.machine" style="color: #E36732;">
+                            {{FormErrors.machine}}
+                        </span>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="isTmsCreated">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Radiation Type')}}</nz-form-label>
+                        <select class="selectItem" formControlName="radiationtype">
+                            <option *ngFor="let radiationoption of radiationTypeInfoList">{{radiationoption?.name}}</option>
+                        </select>
+                        <span *ngIf="FormErrors.radiationtype" style="color: #E36732;">
+                            {{FormErrors.radiationtype}}
+                        </span>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Technique Protocol')}}</nz-form-label>
+                        <select  class="selectItem" formControlName="techniquetype">
+                            <option *ngFor="let techniqueOption of techniqueTypeInfoList" >{{techniqueOption?.name}}</option>
+                        </select>
+                        <span *ngIf="FormErrors.techniquetype" style="color: #E36732;">
+                            {{FormErrors.techniquetype}}
+                        </span>
+                    </nz-form-item>
+                </div>
+            </div>
+        
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">
+                            <label nz-checkbox formControlName="chooseTolerance">{{l('Use Same Tolerance')}}</label>
+                        </nz-form-label>
+                        <nz-form-control>
+                            <select  class="selectItem" *ngIf="beamGroupForm.controls.chooseTolerance.value" formControlName="tolerance">
+                                <option *ngFor="let toleranceItem of tolerances" >{{toleranceItem?.toleranceTableLabel}}</option>
+                            </select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item *ngIf="beamGroupForm.controls.chooseTolerance.value">
+                        <nz-form-label nzNoColon="true"></nz-form-label>
+                        <nz-form-control>
+                           <app-tolerancetable [toleranceInfo]="toleranceDetails"></app-tolerancetable>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">{{l('Description')}}</nz-form-label>
+                        <nz-form-control>
+                            <textarea rows="4" nz-input  formControlName="description" ></textarea>
+                        </nz-form-control> 
+                        <span *ngIf="FormErrors.description" style="color: #E36732;">
+                            {{FormErrors.description}}
+                        </span>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol" *ngIf="isTmsCreated">
+                <div class="common-form-col Fill" >
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Total Dose(cGy)')}}</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input NumberOnly type="number"   formControlName="totoaldose">
+                            <span *ngIf="FormErrors.totoaldose" style="color: #E36732;">
+                                {{FormErrors.totoaldose}}
+                            </span>
+                        </nz-form-control>
+                        
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Fraction Dose(cGy)')}}</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input NumberOnly type="number"   formControlName="fractiondose">
+                            <span *ngIf="FormErrors.fractiondose" style="color: #E36732;">
+                                {{FormErrors.fractiondose}}
+                            </span>
+                        </nz-form-control>
+                        
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Fractions')}}</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input NumberOnly type="number"  formControlName="fractions">
+                            <span *ngIf="FormErrors.fractions" style="color: #E36732;">
+                                {{FormErrors.fractions}}
+                            </span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">{{l('Related Prescription')}}</nz-form-label>
+                        <nz-form-control>
+                            <select class="selectItem" formControlName="relatedprescription">
+                                <option *ngFor="let option of PresciprionInfoList" value="{{option.index}}" label="{{option.index}}"></option>
+                            </select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-label nzNoColon="true">{{l('Related Course')}}</nz-form-label>
+                        <nz-form-control>
+                            <select class="selectItem" formControlName="relatedcourse">
+                                <option *ngFor="let option of coureseList" value="{{option}}" label="{{option}}"></option>
+                            </select>
+                        </nz-form-control>    
+                    </nz-form-item>
+                </div>
+                <div class="common-form-col Fill" *ngIf="isTmsCreated">
+                    <nz-form-item>
+                        <span class="checkbox-import">*</span>
+                        <nz-form-label nzNoColon="true">{{l('Patient Position')}}</nz-form-label>
+                        <nz-form-control>
+                            <select class="selectItem" formControlName="patientposition" >
+                                <option *ngFor="let position of patientPositionList" ng-selected="patientposition==position.name"  value="{{position.name}}" label="{{position.name}}"></option>
+                            </select>
+                            <span *ngIf="FormErrors.patientposition" style="color: #E36732;">
+                                {{FormErrors.patientposition}}
+                            </span>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="common-form-row FlexCol">
+                <div class="common-form-col Fill">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <label class="form-label-checkbox" nz-checkbox formControlName="isgatingControl">{{l('Is Gating')}} </label>
+                            <div *ngIf="isGatingControl">
+                                <select  class="selectItem" formControlName="gatingModelControl">
+                                    <option *ngFor="let option of gatingModelList" value="{{option.label}}" label="{{option.label}}"></option>
+                                </select> 
+                            </div>                               
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="cancelEditBeamgroup()" >{{l('Cancel')}}</button>
+        <button nz-button nzType="primary" *ngIf="this.beamGroupForm.valid" (click)="submitEditBeamgroup()" >{{l('Save')}}</button>
+        <button nz-button nzType="primary" *ngIf="this.beamGroupForm.invalid" disabled >{{l('Save')}}</button>
+                                                                                   
+    </ng-template>
+</nz-modal>  

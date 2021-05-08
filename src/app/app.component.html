@@ -1,0 +1,12 @@
+<div class="FlexRow main main-page">
+    <!-- <app-module-navigation [moduleSelectedIndex]="selectedIndex"></app-module-navigation> -->
+    <div class="main-content Fill">
+        <router-outlet></router-outlet>
+    </div>
+    <ng-template #customEmpty let-name>
+      <div class="custom-empty-box">
+        <img class="ant-empty-image" src="../assets/svg/nodata.svg">
+        <p class="ant-empty-description">No Data</p>
+      </div>
+    </ng-template>
+</div>

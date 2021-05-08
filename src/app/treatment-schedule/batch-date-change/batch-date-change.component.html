@@ -1,0 +1,33 @@
+<div (nzOnCancel)="close()">
+  <form nz-form [formGroup]="validateForm">
+    <div class="common-form-box FlexRow">
+      <div class="common-form-row">
+        <nz-form-item>
+          <nz-form-control>
+            <div>
+              <p style="color: white;">{{activeStatusWarning}}</p>
+            </div>
+            <div>
+              <p style="color: white;">{{completedStatusWarning}}</p>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>{{l('Date')}}(yyyy-MM-dd)</nz-form-label>
+          <nz-form-control>
+            <nz-date-picker formControlName="date" [(ngModel)]="date" [nzDisabledDate]="disabledDate"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="common-form-row">
+        <nz-form-item>
+          <nz-form-control [nzOffset]="12" [nzSpan]="12">
+            <button nz-button style="margin: 20px;" (click)="close()">{{l('Cancel')}}</button>
+            <button nz-button style="margin: 20px;" nzType="primary" (click)="onConfirm()"
+              [disabled]="!validateForm.valid">{{l('OK')}}</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</div>

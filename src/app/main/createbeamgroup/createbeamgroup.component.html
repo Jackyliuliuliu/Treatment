@@ -1,0 +1,133 @@
+<a (click)="showCreateDgModal()" class="menu-icon" nz-tooltip [nzTitle]="addGroupTooltip" nzPlacement="bottom" [class.disable]="isEditPermission===false">
+    <img class="menu-icon-img" src="../../../../assets/svg/icon_addbeamgroup.svg" />
+    <ng-template #addGroupTooltip>
+        <div class="tooltip-template">
+            <p class="middle-text">{{l('Add Beam Group')}}</p>
+        </div>
+    </ng-template>
+</a>
+<ng-template #templateS let-node>
+    <i class="ant-select-arrow-icon">
+        <svg width="18px" height="18px" viewBox="0 0 18 18">
+            <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+                <polygon id="icon/drop" fill="#DCE0F2"
+                    transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+                    points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+            </g>
+        </svg>
+    </i>
+</ng-template>
+<nz-modal [(nzVisible)]="isCreateDgViewVisible" nzMaskClosable = "false" nzWidth="560px" nzWrapClassName="vertical-center-modal"
+    nzTitle="{{l('Create Beam Group')}}" (nzOnCancel)="createDgViewCancel()" [nzFooter]="modalFooter">
+    <form nz-form [formGroup]="createBeamGroupForm" (ngSubmit)="CreateDgSubmitForm()">
+        <div class="common-form-box FlexRow">
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{l('Name')}}</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input type="text" formControlName="beamgroupname" [(ngModel)]="beamGroupName" maxlength="64">
+                        <span class="errAlerk" *ngIf="createBeamGroupForm.get('beamgroupname').hasError('check')">禁止输入反斜杠\</span>
+                        <nz-form-explain
+                            *ngIf="createBeamGroupForm.get('beamgroupname').dirty && createBeamGroupForm.get('beamgroupname').errors || createBeamGroupForm.get('beamgroupname').pending">
+                            <ng-container *ngIf="createBeamGroupForm.get('beamgroupname').hasError('beamgroupname')">
+                                The input is not valid beamgroup name
+                            </ng-container>
+                            <ng-container *ngIf="createBeamGroupForm.get('beamgroupname').pending">
+                                Validating...
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{l('Machine Name')}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select [nzSuffixIcon]="templateS" nzPlaceHolder="Select" formControlName="machinename"
+                            [(ngModel)]="machineName" (ngModelChange)="machineNameSelcetedChanged($event)">
+                            <nz-option *ngFor="let machinenameoption of machineNameList " [nzValue]="machinenameoption"
+                                [nzLabel]="machinenameoption.machineName"></nz-option>
+                        </nz-select>
+                        <nz-form-explain
+                            *ngIf="createBeamGroupForm.get('machinename').dirty && createBeamGroupForm.get('machinename').errors || createBeamGroupForm.get('machinename').pending">
+                            <ng-container *ngIf="createBeamGroupForm.get('machinename').hasError('machinename')">
+                                The input is not valid radiation type
+                            </ng-container>
+                            <ng-container *ngIf="createBeamGroupForm.get('machinename').pending">
+                                Validating...
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+
+            </div>
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{l('Radiation Type')}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select [nzSuffixIcon]="templateS" nzPlaceHolder="Select" formControlName="radiationtype"
+                            [(ngModel)]="radiationType">
+                            <nz-option *ngFor="let radiationoption of radiationTypeInfoList" [nzValue]="radiationoption"
+                                [nzLabel]="radiationoption.name"></nz-option>
+                        </nz-select>
+                        <nz-form-explain
+                            *ngIf="createBeamGroupForm.get('radiationtype').dirty && createBeamGroupForm.get('radiationtype').errors || createBeamGroupForm.get('radiationtype').pending">
+                            <ng-container *ngIf="createBeamGroupForm.get('radiationtype').hasError('radiationtype')">
+                                The input is not valid radiation type
+                            </ng-container>
+                            <ng-container *ngIf="createBeamGroupForm.get('radiationtype').pending">
+                                Validating...
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{l('Technique Type')}}</nz-form-label>
+                    <nz-form-control>
+                        <nz-select [nzSuffixIcon]="templateS" nzPlaceHolder="Select" formControlName="techniquetype"
+                            [(ngModel)]="techniqueType" (ngModelChange)="techniquetypeSelcetedChanged($event)">
+                            <nz-option *ngFor="let techniqueoption of techniqueTypeInfoList" [nzValue]="techniqueoption"
+                                [nzLabel]="techniqueoption.name"></nz-option>
+                        </nz-select>
+                        <nz-form-explain
+                            *ngIf="createBeamGroupForm.get('techniquetype').dirty && createBeamGroupForm.get('techniquetype').errors || createBeamGroupForm.get('techniquetype').pending">
+                            <ng-container *ngIf="createBeamGroupForm.get('techniquetype').hasError('techniquetype')">
+                                The input is not valid radiation type
+                            </ng-container>
+                            <ng-container *ngIf="createBeamGroupForm.get('techniquetype').pending">
+                                Validating...
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="common-form-row">
+                <div class="label">
+                    <label class="common-tolerance-label" nz-checkbox
+                        formControlName="chooseTolerance">{{l('Tolerance')}}</label>
+                </div>
+                <div class="select-with-btn FlexCol" *ngIf="createBeamGroupForm.controls.chooseTolerance.value">
+                    <div class="Fill left-select">
+                        <nz-select [nzSuffixIcon]="templateS" nzPlaceHolder="Select" formControlName="tolerance"
+                            [nzShowSearch]="true">
+                            <nz-option *ngFor="let i of tolerances" [nzLabel]="i.toleranceTableLabel" [nzValue]="i">
+                            </nz-option>
+                        </nz-select>
+                    </div>
+                    <div class="right-btn">
+                        <app-tolerancetable [toleranceInfo]="createBeamGroupForm.controls.tolerance.value">
+                        </app-tolerancetable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="createDgViewCancel()">{{l('Cancel')}}</button>
+        <button nz-button nzType="primary" [disabled]="!createBeamGroupForm.valid"
+            (click)="createDgViewOk()">{{l('Save')}}</button>
+    </ng-template>
+</nz-modal>

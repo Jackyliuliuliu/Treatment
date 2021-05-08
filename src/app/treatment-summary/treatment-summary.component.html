@@ -1,0 +1,181 @@
+<div class="record-content Fill FlexRow">
+  <div class="top-toolbar FlexCol">
+    <div class="Fill left-toolbar FlexCol">
+      <div class="tool-box">
+        <!-- <button class="tool-icon" (click)="printBtnClicked()" [disabled]="!isPermission">
+          <img class="tool-img"  src="../../../../assets/svg/icon_dayin.svg">
+        </button>    -->
+        <a class="tool-icon"(click)="printBtnClicked()" nzType="default" [class.disable]="!isPermission"><img
+          src="../../../../assets/svg/icon_dayin.svg" /></a>
+        <p class="text">{{l("Print")}}</p>
+      </div>
+      <div class="tool-box">
+        <label class="tool-checkbox" nz-checkbox [(ngModel)]="hideGapChecked"
+          (ngModelChange)="hideGapChanged()"></label>
+        <p class="text">{{l("Hide Gap")}}</p>
+      </div>
+      <div class="tool-box">
+        <label class="tool-checkbox" nz-checkbox  [(ngModel)]="doseTrackChecked"></label>
+        <p class="text">{{l("Dose Track")}}</p>
+      </div>
+      <div class="tool-box">
+        <a class="tool-icon"(click)="settingBtnClicked()" nzType="default" [class.disable]="!isSetBtnEditable"><img
+          src="../../../../assets/svg/icon_setting.svg" /></a>
+        <p class="text">设置</p>
+      </div>
+    </div>
+    <div class="header-patient-card">
+      <patientCard-component></patientCard-component>
+    </div>
+  </div>
+  <div class="record-bottom-content Fill FlexRow">
+    <div class="record-top-calendar">
+      <nz-table #expandTable [nzData]="listOfMapData" [nzShowPagination]="false" [nzScroll]="{ x: '100%', y: '304px' }">
+        <thead>
+          <tr *ngFor="let data of dateList">
+            <th *ngIf="data.name != ''" nzLeft="0px" nzWidth="139px"><span
+                class="name-td header-name">{{ data.name }}</span></th>
+            <th *ngIf="data.name === ''" nzLeft="0px" nzWidth="139px"><span class="name-td"><br></span></th>
+            <th *ngFor="let listD1 of data.list">
+              <ng-container *ngIf="listD1.num > 1; else elseTh">
+                <div class="value-div FlexCol" [ngStyle]="{minWidth: 30 * listD1.num + 'px'}">
+                  <div class="value-td">
+                    <span class="value-span" [class.green-border]="listD1.status === 1"
+                      [class.blue-border]="listD1.status === 2" [class.warning-border]="listD1.status === 3"
+                      [class.error-border]="listD1.status === 4"
+                      [class.small-text]="listD1.value.length > 3">{{ listD1.value }}</span>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #elseTh>
+                <div class="value-div FlexCol">
+                  <div class="value-td">
+                    <span class="value-span" [class.green-border]="listD1.status === 1"
+                      [class.blue-border]="listD1.status === 2" [class.warning-border]="listD1.status === 3"
+                      [class.error-border]="listD1.status === 4"
+                      [class.small-text]="listD1.value.length > 3">{{ listD1.value }}</span>
+                  </div>
+                </div>
+              </ng-template>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let data of expandTable.data">
+            <ng-container *ngFor="let item of mapOfExpandedData[data.key]">
+              <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+                <td nzLeft="0px" nzWidth="139px" [nzShowExpand]="!!item.children" [(nzExpand)]="item.expand"
+                  [class.parent-node]="!!item.children"
+                  (nzExpandChange)="collapse(mapOfExpandedData[data.key], item, $event)">
+                  <ng-container *ngIf="!!item.children; else elseName">
+                    <span class="name-td" [nzTitle]="groupTemplate" nzPlacement="bottom"
+                      nz-tooltip>{{ item.name }}</span>
+                    <ng-template #groupTemplate>
+                      <div class="tooltip-template">
+                        <p>{{ item.fractionNumber}} {{l('Fxs')}}</p>
+
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                  <ng-template #elseName>
+                    <span class="name-td">{{ item.name }}</span>
+                  </ng-template>
+                </td>
+                <ng-container *ngIf="item.children; else elseTd">
+                  <td *ngFor="let listD of item.list">
+                    <div class="value-div FlexCol">
+                      <ng-container *ngFor="let content of listD.children">
+                        <div class="value-td" (click)="chooseBeamGroup(content)"
+                          [class.green-node]="content.status === 1" [class.blue-node]="content.status === 2"
+                          [class.warning-node]="content.status === 3" [class.error-node]="content.status === 4"
+                          [class.checked-node]="content.checked === 1">
+                          <span class="value-span" *ngIf="content.value" [nzTitle]="titleTemplate" nzPlacement="bottom"
+                            nz-tooltip>{{ content.value }}</span>
+                          <span class="value-span transparent-text" *ngIf="!content.value"><br></span>
+                          <ng-template #titleTemplate>
+                            <div class="tooltip-template">
+                              <p>{{content.count}}</p>
+                              <p *ngIf="content.info" class="middle-text">{{content.info}}</p>
+                              <p *ngIf="content.msgType">{{content.msgType}}</p>
+                            </div>
+                          </ng-template>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </td>
+                </ng-container>
+                <ng-template #elseTd>
+                  <td *ngFor="let listD of item.list">
+                    <div class="value-div FlexCol">
+                      <ng-container *ngFor="let content1 of listD.children">
+                        <div class="value-td transparent-text" (click)="chooseBeam(content1, item.name)"
+                          [class.green-node]="content1.status === 1" [class.blue-node]="content1.status === 2"
+                          [class.warning-node]="content1.status === 3" [class.error-node]="content1.status === 4"
+                          [class.checked-node]="content1.checked === 1">
+                          <!-- <span class="value-span"><br></span> -->
+                          <span class="value-span" *ngIf="content1.msgType" [nzTitle]="titleTemplate1" nzPlacement="bottom"
+                            nz-tooltip></span>
+                          <span class="value-span transparent-text" *ngIf="!content1.msgType"><br></span>
+                          <ng-template #titleTemplate1>
+                            <div class="tooltip-template">
+                              <p *ngIf="content1.msgType">{{content1.msgType}}</p>
+                              <p *ngIf="content1.approver">Approver: {{content1.approver}}</p>
+                              <p *ngIf="content1.date">Date: {{content1.date}}</p>
+                            </div>
+                          </ng-template>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </td>
+                </ng-template>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </nz-table>
+    </div>
+    <div class="record-bottom-table FlexRow Fill" #mTableView>
+      <nz-table #basicTabletwo [nzData]="recordTableRowList" nzNoResult="NoResult"
+      [nzScroll]="{ x: '2500px', y: tableHeight }" nzShowPagination="false">      
+        <thead (nzSortChange)="sort($event)" nzSingleSort >
+          <tr>
+            <th nzWidth="5%" [nzShowSort]="column.item2" [nzSortKey]="column.item1" [nzSort]="sortValue" *ngFor="let column of recordTableColumns"><span>{{column.item1}}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of recordTableRowList">
+            <td class="overflow-td" *ngFor="let cell of row">{{cell}}</td>
+          </tr>
+        </tbody> 
+      </nz-table>
+    </div>
+    <div class="record-bottom-table FlexRow" *ngIf="doseTrackChecked">
+      <nz-table [nzData]="[{}]" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th nzWidth="300px">{{l('Dose Tracking')}}</th>
+            <th nzWidth="100">NormalPoint</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{l('Total Dose(All Fractions)(cGy)')}}</td>
+            <td>{{doseTracking.totalDose}}</td>
+          </tr>
+          <tr>
+            <td>{{l('Dose Per Fraction(cGy)')}}</td>
+            <td>{{doseTracking.dosePerFraction}}</td>
+          </tr>
+          <tr>
+            <td>{{l('Current Cumulative Dose(cGy)')}}</td>
+            <td><span [class.dose-warn] = "isDoseWarn">{{doseTracking.doseToCurrentSession}}</span></td>
+          </tr>
+          <tr>
+            <td>{{l('Current Plan Dose(cGy)')}}</td>
+            <td>{{doseTracking.dosePlannedToCurrentSession}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>

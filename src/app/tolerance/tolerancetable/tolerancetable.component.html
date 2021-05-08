@@ -1,0 +1,24 @@
+<a class="FlexCol tolerance-a" (click)="showModal()"><img src="../../../assets/svg/icon_tasklist.svg" /></a>
+
+<nz-modal nzWidth="560px" nzWrapClassName="vertical-center-modal" [(nzVisible)]="isVisible" [nzTitle]="l('ToleranceInfo')"
+  (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" nzMaskClosable = "false">
+
+  <nz-table tableResizable [nzData]="toleranceTable" nzShowPagination="false">
+    <thead>
+      <tr>
+        <th>{{l('ToleranceField')}}</th>
+        <th>{{l('ToleranceValue')}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of toleranceTable">
+        <td>
+          <span>{{i.field}}</span>
+        </td>
+        <td>
+          <span>{{i.value}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

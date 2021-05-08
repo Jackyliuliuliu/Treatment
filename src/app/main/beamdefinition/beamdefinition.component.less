@@ -1,0 +1,45 @@
+::ng-deep {
+    .beam-definition {
+        width: 100%;
+        height: 100%;
+
+        .right-content {
+            overflow: hidden;
+        }
+
+        .ant-collapse-content {
+            overflow: initial;
+        }
+    }
+}
+
+
+//使icon居中显示
+.span-icon {
+    width: 20px;
+    height: 30px;
+    line-height: 30px;
+
+    svg {
+        margin: 5px 0;
+    }
+}
+
+.span-icon_left {
+    width: 20px;
+    height: 30px;
+    margin-right: 10px;
+    line-height: 30px;
+
+    svg {
+        margin: 5px 0;
+    }
+}
+
+.treeIcon {
+    float: right;
+    display: flex;
+    margin-right: 7px; //cdic的padding-right是7px
+    align-items: center;
+    height: 30px; //span的height为20px，为了居中显示得使其高度撑到30px;
+}

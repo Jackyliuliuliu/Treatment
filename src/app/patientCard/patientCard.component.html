@@ -1,0 +1,54 @@
+<div class="patient-card FlexRow">
+
+    <div class="input-box FlexCol">
+        <img class="search-icon" src="../../assets/svg/sousuo.svg">
+        <input nz-input placeholder="Search Patient Name Or ID" [(ngModel)]="keyWords" (keyup)="search($event);"
+             type="text" class="search-input" />
+        <img class="clear-icon" src="../../assets/svg/clear.svg" (click)="clearKeyWord()" *ngIf="keyWords">
+    </div>
+
+    <div class="search-info" *ngIf="!isLoad && !isSelectedNewPatient && isDropDownList">
+        <div class="search-card FlexRow" *ngFor="let item of resultUserList" (click)="selectedPatient(item);">
+            <div class="name-info FlexCol Fill">
+                <div class="left-info Fill FlexCol">
+                    <div class="name">{{item.patientName}}</div>
+                </div>
+                <div class="sex">
+                    <span><img src="../../assets/svg/icon_nan.svg" *ngIf="(item.patientSex=='Male')" /></span>
+                    <span><img src="../../assets/svg/icon_nv.svg" *ngIf="(item.patientSex=='Female')" /></span>
+                </div>
+            </div>
+            <div class="patient-id">
+                <span class="patient-id"> {{item.patientID}}</span>
+                <span style="margin-left:20px;">{{item.patientAge}}</span>
+            </div>
+          
+        </div>
+    </div>
+
+    <div class="search-loading" *ngIf="isLoad">
+        In the query, please wait a moment.
+    </div>
+
+    <div class="patient-info FlexCol Fill" *ngIf="isHassaerchedPatients && !startSearch">
+        <img class="left-avatar" src="../../assets/svg/user.svg" />
+        <div class="right-info Fill">
+            <p class="patient-name FlexCol">
+                <span class="name Fill">{{patientName}}</span>
+                <span class="gender-icon" *ngIf="patientSex"><img src="../../assets/svg/icon_nan.svg"/></span>
+                <span class="gender-icon" *ngIf="!patientSex"><img src="../../assets/svg/icon_nv.svg"/></span>
+            </p>
+            <p class="patient-ID">
+                <span>{{patientID}}</span>
+                <span style="margin-left:20px;">{{patientAge}}</span>
+                </p>
+            <p class="patient-time">{{selectPatientBirthDate}}</p>
+			<p class="patient-time">(yyyy/MM/dd)</p>
+        </div>
+    </div>
+
+    <div *ngIf="!isHassaerchedPatients" class="error-info Fill">
+        No relevant information was found, please check after inquiry.
+    </div>
+
+</div>

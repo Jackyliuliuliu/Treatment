@@ -1,0 +1,15 @@
+<div class="menu-box FlexCol">
+      <div class="menu-icon">
+            <app-addbeam [selectedNode]="selectedNode" [beamGroupList]="beamGroupList" [isEditPermission]="isEditPermission"
+                  (AfterActionToRefreshTree)="AfterActionToRefreshTreeTransfer($event)"></app-addbeam>
+      </div>
+      <div class="menu-icon">
+            <app-deletebeam [selectedNode]="selectedNode" [beamGroupList]="beamGroupList" [isDeletePermission]="isDeletePermission"
+                  (AfterActionToRefreshTree)="AfterActionToRefreshTreeTransfer($event)"></app-deletebeam>
+      </div>
+      <div class="menu-icon">
+            <app-copybeam [selectedNode]="selectedNode" [beamGroupList]="beamGroupList" [isEditPermission]="isEditPermission"
+                  (AfterActionToRefreshTree)="AfterActionToRefreshTreeTransfer($event)"
+                  ></app-copybeam>
+      </div>
+</div>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/gengduo</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/gengduo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill-rule="nonzero" x="0" y="0" width="26" height="26"></rect>
+        <g id="gengduo" transform="translate(4.000000, 11.000000)" fill="#ffffff" fill-rule="nonzero">
+            <path d="M1.89997957,0 C0.850689453,0 0,0.895525987 0,2 C0,3.10447401 0.850689453,4 1.89997957,4 C2.94921857,4 3.79995913,3.10447401 3.79995913,2 C3.79995913,0.895525987 2.94924414,0 1.89997957,0 Z M9.49997446,0 C8.4506588,0 7.59994381,0.895525987 7.59994381,2 C7.59994381,3.10447401 8.45063326,4 9.49997446,4 C10.5491624,4 11.4000051,3.10447401 11.4000051,2 C11.4000051,0.895525987 10.5491879,0 9.49997446,0 Z M17.0999693,0 C16.0507048,0 15.1999898,0.895525987 15.1999898,2 C15.1999898,3.10447401 16.0507048,4 17.0999693,4 C18.1491828,4 19,3.10447401 19,2 C19,0.895525987 18.1492084,0 17.0999693,0 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

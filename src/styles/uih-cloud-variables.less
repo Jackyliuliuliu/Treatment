@@ -1,0 +1,276 @@
+@import "rt-cloud-variables.less";
+/* ***** FOR RT CLOUD ***** */
+
+
+
+
+/* ----------------------------
+         Font Families
+---------------------------- */
+@rt-font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+
+/* ----------------------------
+         Font Sizes
+---------------------------- */
+@rt-font-size--base: 14px;
+@rt-font-size--sm: 12px;
+@rt-font-size--lg: 16px;
+@rt-font-size--xl: 18px;
+@rt-font-size--xxl: 20px;
+
+/* ----------------------------
+       Foreground Colors
+---------------------------- */
+@rt-text-color--default: #cfcfcf;
+@rt-text-color--highlight: #ffffff;
+@rt-text-color--hightblack: #000000;
+@rt-text-color--darker: #7B808E;
+@rt-text-color--dark: #161a1d;
+@rt-text-color--active: #47be68;
+
+@rt-placeholder-color: #5a5d69;
+
+@rt-popup-title-color: #7B808E;
+
+/* ----------------------------
+       Background Colors
+---------------------------- */
+@rt-layout-bg--first: #161a1d;
+@rt-layout-bg--secondary: #23262b;
+@rt-layout-bg--third: #2b2f36;
+
+@rt-control-bg--default: #121417;
+@rt-control-bg--active: #3b9b4d;
+
+@rt-btn-bg--default: #5a5d69;
+@rt-btn-bg--primary: #3b9b4d;
+@rt-icon-btn-bg: #2b2f36;
+@rt-icon-btn-bg--active: #23262b;
+
+@rt-dropdown-bg: #23262b;
+@rt-dropdown-item-bg: #2b2f36;
+
+@rt-checkbox-bg: #161a1d;
+@rt-radio-bg: #161a1d;
+
+@rt-table-row-bg: @rt-layout-bg--secondary;
+@rt-table-row-bg--light: @rt-layout-bg--third;
+@rt-table-row-bg--hover: #2e6b42;
+@rt-table-row-bg--active: #329c4e;
+@rt-table-scroll-bar-thumb-bg: #1a2229;
+
+@rt-alert-info-bg-color: #2b2f36;
+
+/* ----------------------------
+       Border Colors
+---------------------------- */
+@rt-separator-line-color: #303236;
+@rt-control-border-color--default: #303236;
+@rt-control-border-color--active: #2e6b42;
+
+@rt-icon-btn-border-color: #3b3f48;
+
+@rt-checkbox-border-color: #5a5d69;
+@rt-radio-border-color: #5a5d69;
+
+@rt-table-row-border-color: @rt-layout-bg--first;
+@rt-table-row-border-color--light: @rt-layout-bg--secondary;
+
+
+
+
+
+
+/* ----------------------------
+         Alert
+---------------------------- */
+
+
+
+
+/* ----------------------------
+         Button
+---------------------------- */
+@btn-text-color: @rt-btn-text-color;
+@btn-primary-bccolor: @rt-btn-primary-bccolor;
+@btn-primary-bgcolor: @rt-btn-primary-bgcolor;
+@btn-primary-focus-bccolor: @rt-btn-primary-focus-bccolor;
+@btn-primary-focus-bgcolor: @rt-btn-primary-focus-bgcolor;
+@btn-default-bccolor: @rt-btn-default-bccolor;
+@btn-default-bgcolor: @rt-btn-default-bgcolor;
+@btn-default-focus-bccolor: @rt-btn-default-focus-bccolor;
+@btn-default-focus-bgcolor: @rt-btn-default-focus-bgcolor;
+
+@btn-primary-theme-bccolor: @rt-btn-primary-theme-bccolor;
+@btn-primary-theme-bgcolor: @rt-btn-primary-theme-bgcolor;
+@btn-primary-theme-text-color: @rt-btn-primary-theme-text-color;
+
+@btn-secondary-theme-bccolor: @rt-btn-secondary-theme-bccolor;
+@btn-secondary-theme-bgcolor: @rt-btn-secondary-theme-bgcolor;
+
+
+
+/* ----------------------------
+         Radiobox
+---------------------------- */
+
+@radio-bgcolor: @rt-radio-bgcolor;
+@radio-bccolor: @rt-radio-bccolor;
+@radio-after-bgcolor: @rt-radio-after-bgcolor;
+@radio-color: @rt-radio-color;
+
+@radio-check-bccolor: @rt-radio-check-bccolor;
+@radio-check-bgcolor: @rt-radio-check-bgcolor;
+
+@radio-wrapper-color: @rt-radio-wrapper-color;
+@radio-wrapper-check-bgcolor: @rt-radio-wrapper-check-bgcolor;
+@radio-wrapper-check-color: @rt-radio-wrapper-check-color;
+@radio-wrapper-check-active-color: @rt-radio-wrapper-check-active-color;
+@radio-wrapper-check-active-bgcolor: @rt-radio-wrapper-check-active-bgcolor;
+
+
+
+/* ----------------------------
+         Checkbox
+---------------------------- */
+@checkbox-color: @rt-checkbox-color;
+@checkbox-bgcolor: @rt-checkbox-bgcolor;
+@checkbox-bccolor: @rt-checkbox-bccolor;
+
+
+@checkbox-check-bccolor: @rt-checkbox-check-bccolor;
+@checkbox-check-bgcolor: @rt-checkbox-check-bgcolor;
+
+@checkbox-wrapper-text-color: @rt-checkbox-wrapper-text-color;
+
+
+
+
+
+
+
+
+/* ----------------------------
+         Dropdown
+---------------------------- */
+@dropdown-bccolor: @rt-dropdown-bccolor;
+@dropdown-bgcolor: @rt-dropdown-bgcolor;
+@dropdown-color: @rt-dropdown-color;
+@dropdown-focus-color: @rt-dropdown-focus-color;
+@dropdown-text-color: @rt-dropdown-text-color;
+@dropdown-divider-bgcolor: @rt-dropdown-divider-bgcolor;
+@dropdown-menu-bgcolor: @rt-dropdown-menu-bgcolor;
+@dropdown-checkbox-check-bgcolor: @rt-dropdown-checkbox-check-bgcolor;
+@dropdown-checkbox-check-bccolor: @rt-dropdown-checkbox-check-bccolor;
+@dropdown-checkbox-bgcolor: @rt-dropdown-checkbox-bgcolor;
+@dropdown-checkbox-bccolor: @rt-dropdown-checkbox-bccolor;
+@dropdown-checkbox-color: @rt-dropdown-checkbox-color;
+@dropdown-menu-item-bgcolor: @rt-dropdown-menu-item-bgcolor;
+@dropdown-menu-item-hover-arrow-icon-color: @rt-dropdown-menu-item-hover-arrow-icon-color;
+@dropdown-menu-item-arrow-icon-color: @rt-dropdown-menu-item-arrow-icon-color;
+@dropdown-link-bgcolor: @rt-dropdown-link-bgcolor;
+@dropdown-secondary-bgcolor: @rt-dropdown-secondary-bgcolor;
+@dropdown-secondary-bccolor: @rt-dropdown-secondary-bccolor;
+@dropdown-secondary-color: @rt-dropdown-secondary-color;
+@dropdown-group-title-color: @rt-dropdown-group-title-color;
+@dropdown-group-title-hover-color: @rt-dropdown-group-title-hover-color;
+
+
+
+
+
+
+/* ----------------------------
+         Select
+---------------------------- */
+
+
+
+
+
+
+
+/* ----------------------------
+         Input
+---------------------------- */
+
+
+
+
+
+
+/* ----------------------------
+         Slider
+---------------------------- */
+
+
+
+/* ----------------------------
+         Switch
+---------------------------- */
+
+
+
+
+
+/* ----------------------------
+         Datapicker
+---------------------------- */
+
+
+
+
+/* ----------------------------
+         ToolTip
+---------------------------- */
+
+
+
+
+
+/* ----------------------------
+         Popover
+---------------------------- */
+
+
+
+
+
+/* ----------------------------
+         Card
+---------------------------- */
+
+
+
+
+
+/* ----------------------------
+         Table
+---------------------------- */
+
+
+
+
+/* ----------------------------
+         Tree
+---------------------------- */
+
+
+
+
+/* ----------------------------
+         Dialog
+---------------------------- */
+
+
+
+
+/* ----------------------------
+         Tabs
+---------------------------- */
+
+
+
+/* ----------------------------
+         Scrollbar
+---------------------------- */

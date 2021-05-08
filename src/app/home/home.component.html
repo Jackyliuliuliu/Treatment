@@ -1,0 +1,16 @@
+﻿<h3>临时调试使用的： Patient List</h3>
+<nz-list [nzDataSource]="patients" nzBordered nzSize="large" [nzRenderItem]="item">
+    <ng-template #item let-item>
+        <nz-list-item [nzContent]="item.patientName + ' ' + item.patientAge + ' ' + item.patientSex + ' ' + item.patientID"  [nzActions]="[beamGroupAction, scheduleAction, recordAction, exportAction]">
+            <ng-template #beamGroupAction><a (click)="beamGroup(item)">BeamGroup</a></ng-template>
+            <ng-template #scheduleAction><a (click)="schedule(item)">Schedule</a></ng-template>
+            <ng-template #recordAction><a (click)="record(item)">Record</a></ng-template>
+            <ng-template #exportAction><a (click)="export(item)">Export</a></ng-template>
+            <ng-template #machineTreatmentScheduleAction><a (click)="machineScheduleClicked()">Export</a></ng-template>
+            <ng-template #summaryAction><a (click)="summarySetting(item)">SummarySetting</a></ng-template>
+        </nz-list-item>
+    </ng-template>
+</nz-list>
+
+<button nz-button nzType="primary" (click)="machineScheduleClicked()">Machine Schedule Query</button>
+<button nz-button nzType="default" (click)="printClicked()">Print</button>

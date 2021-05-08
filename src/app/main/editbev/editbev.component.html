@@ -1,0 +1,124 @@
+<div class="tool-box">
+    <button class="tool-icon" (click)="editBEV()" [disabled]="!isEditPermission"><img src="../../../../assets/svg/edit_BEV.svg"/></button>
+    <p class="text">编辑BEV</p>
+</div>
+<nz-modal [nzVisible]="isEditBEV" nzMaskClosable="false" nzTitle="编辑BEV" nzWidth="800px"
+    nzWrapClassName="vertical-center-modal" (nzOnCancel)="cancelEdit()" [nzFooter]="modalFooter">
+    <div class="common-form-box FlexRow">
+        <div class="common-form-row FlexCol">
+            <div class="common-form-col Fill"> 
+                <mlc-component [controlPointsData]="controlPointsData" #mlcShape [id]="mlcShape" (GetControlPointIndex)="GetControlPointIndex($event)"></mlc-component>
+            </div> 
+        </div>
+        <div class="common-form-row FlexCol">
+            <form nz-form #validateForm="ngForm" >
+                <div class="common-form-box FlexRow">
+                    <div class="common-form-row FlexCol">
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <nz-form-label nzNoColon="true">准直器角度（˚）</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input type="number" NumberOnly [(ngModel)]="beamLimitingDeviceAngle" name="beamLimitingDeviceAngle" pattern="^\d+(\.\d{1})?$">
+                                    <span *ngIf="validateForm.form.hasError('pattern','beamLimitingDeviceAngle')" style="color: #E36732;">精度为小数点后一位的正数</span>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <nz-form-label nzNoColon="true">{{l('Cumulative MU')}} : {{cumulativeMu}}</nz-form-label>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="common-form-row FlexCol">
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <nz-form-label nzNoColon="true">
+                                    <label class="form-label-checkbox" nz-checkbox [(ngModel)]="this.symX" name="asymx" (ngModelChange)="changeAsymx($event)">SYMX</label>
+                                </nz-form-label>
+                            </nz-form-item>
+                        </div>
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <nz-form-label nzNoColon="true">X jaw size（cm） : {{this.jawX2-this.jawX1}}</nz-form-label><br/>
+                                <span *ngIf="XJawWrong" style="color: #E36732;">X1的值不能大于X2</span>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="common-form-row FlexCol">
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <span class="checkbox-import">*</span>
+                                <nz-form-label nzNoColon="true">X1（cm）</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input type="number" NumberOnly [(ngModel)]="this.jawX1" required name="jawX1"  pattern="^-?\d+(\.\d{1})?$"  (ngModelChange)="changejawX1($event)">
+                                    <span *ngIf="validateForm.form.hasError('required','jawX1')" style="color: #E36732;">必填项</span>
+                                    <span *ngIf="validateForm.form.hasError('pattern','jawX1')" style="color: #E36732;">精度为小数点后一位</span>
+                                    <span *ngIf="X1RangeError" style="color: #E36732;">X1的范围为[-20,20]</span>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <span class="checkbox-import">*</span>
+                                <nz-form-label nzNoColon="true">X2（cm）</nz-form-label>
+                                <nz-form-control>
+                                    <input nz-input type="number" NumberOnly [(ngModel)]="this.jawX2" required name="jawX2"  pattern="^-?\d+(\.\d{1})?$" (ngModelChange)="changejawX2($event)">
+                                    <span *ngIf="validateForm.form.hasError('required','jawX2')" style="color: #E36732;">必填项</span>
+                                    <span *ngIf="validateForm.form.hasError('pattern','jawX2')" style="color: #E36732;">精度为小数点后一位</span>
+                                    <span *ngIf="X2RangeError" style="color: #E36732;">X2的范围为[-20,20]</span>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="common-form-row FlexCol">
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <nz-form-label nzNoColon="true">
+                                    <label class="form-label-checkbox" nz-checkbox [(ngModel)]="this.symY" name="asymy" (ngModelChange)="changeAsymy($event)">SYMY</label>
+                                </nz-form-label>
+                            </nz-form-item>
+                        </div>
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <nz-form-label nzNoColon="true">Y jaw size（cm）: {{this.jawY2-this.jawY1}}</nz-form-label><br>
+                                <span *ngIf="YJawWrong" style="color: #E36732;">Y1的值不能大于Y2</span>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                    <div class="common-form-row FlexCol">
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <span class="checkbox-import">*</span>
+                                <nz-form-label nzNoColon="true">Y1（cm）</nz-form-label>
+                                <nz-form-control>
+                                        <input nz-input type="number" NumberOnly [(ngModel)]="this.jawY1" required name="jawY1"  pattern="^-?\d+(\.\d{1})?$" (ngModelChange)="changejawY1($event)">
+                                        <span *ngIf="validateForm.form.hasError('required','jawY1')" style="color: #E36732;">必填项</span>
+                                        <span *ngIf="validateForm.form.hasError('pattern','jawY1')" style="color: #E36732;">精度为小数点后一位</span>
+                                        <span *ngIf="Y1RangeError" style="color: #E36732;">Y1的范围为[-20,20]</span>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                        <div class="common-form-col Fill">
+                            <nz-form-item>
+                                <span class="checkbox-import">*</span>
+                                <nz-form-label nzNoColon="true">Y2（cm）</nz-form-label>
+                                <nz-form-control>
+                                        <input nz-input type="number" required NumberOnly [(ngModel)]="this.jawY2" required name="jawY2" pattern="^-?\d+(\.\d{1})?$" (ngModelChange)="changejawY2($event)">
+                                        <span *ngIf="validateForm.form.hasError('required','jawY2')" style="color: #E36732;">必填项</span>
+                                        <span *ngIf="validateForm.form.hasError('pattern','jawY2')" style="color: #E36732;">精度为小数点后一位</span>
+                                        <span *ngIf="Y2RangeError" style="color: #E36732;">Y2的范围为[-20,20]</span>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <ng-template #modalFooter>
+                <button nz-button nzType="default" (click)="cancelEdit()">{{l('Cancel')}}</button>
+                <button nz-button nzType="primary" (click)="submitEdit()" 
+                [disabled]="validateForm.invalid || this.XJawWrong || this.YJawWrong || Y2RangeError || Y1RangeError || X2RangeError || X1RangeError">{{l('Save')}}</button>
+            </ng-template>
+         </div>
+    </div>
+</nz-modal>

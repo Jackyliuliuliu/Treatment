@@ -1,0 +1,85 @@
+
+.summarySetting {
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px 20px;
+
+            .bottom-tree {
+                background: #2b2f36;
+                //overflow-x: hidden;
+                // overflow-y: auto;
+
+                .tree-with-drop {
+                    height: 300px;
+                    .tree-drop-node {
+                        height: 36px;
+                        line-height: 36px;
+                        padding: 0 10px;
+                        cursor: pointer;
+                        align-items: center;
+
+                        .tree-title {
+                            font-size: 12px;
+                            color: #FFFFFF;
+                            line-height: 36px;
+                            //overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+
+                        .tree-cover-icon-dropdown {
+                            display: none;
+
+                            .tree-cover-icon {
+                                width: 24px;
+                                height: 24px;
+                                border-radius: 12px;
+                                background: rgba(255, 255, 255, 0.2);
+                                text-align: center;
+                                line-height: 24px;
+                                display: flex;
+                                padding: 0;
+                                align-items: center;
+                                justify-content: center;
+
+                                .cover-icon {
+                                    width: 20px;
+                                    height: 20px;
+                                }
+
+                                &:active {
+                                    background: rgba(0, 0, 0, 0.2);
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            background: #326e43;
+
+                            .tree-cover-icon-dropdown {
+                                display: block;
+                            }
+                        }
+
+                        &.active-node {
+                            background-color: #326e43;
+
+                            .tree-cover-icon-dropdown {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+            .bottom-button {
+                justify-content: flex-end;
+                align-items: center;
+        
+                .ant-btn+.ant-btn {
+                    margin-left: 20px;
+                }
+            }
+
+
+
+}

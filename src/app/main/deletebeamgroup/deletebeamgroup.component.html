@@ -1,0 +1,8 @@
+<a  class="menu-icon" (click)="deleteClick()" nz-tooltip [nzTitle]="deleteTooltip" nzPlacement="bottom" [class.disable]="isDeletePermission===false || selectNode===null">
+    <img class="menu-icon-img" src="../../../../assets/svg/icon_delete.svg" />
+    <ng-template #deleteTooltip>
+        <div class="tooltip-template">
+            <p class="middle-text">{{l('Delete')}}</p>
+        </div>
+    </ng-template>
+</a>

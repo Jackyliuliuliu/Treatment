@@ -1,0 +1,51 @@
+<nz-modal [(nzVisible)]="isUserConfirmViewVisible" nzWidth="560px" nzWrapClassName="vertical-center-modal"
+    nzTitle="{{l('User Confirm')}}" (nzOnCancel)="userViewCancel()" [nzFooter]="modalFooter" nzMaskClosable = "false">
+    <form nz-form [formGroup]="uservalidateForm" (ngSubmit)="submitUserForm()">
+        <div class="common-form-box FlexRow">
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{l('User Name')}}</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input type="text" formControlName="username" [(ngModel)]="username">
+                        <nz-form-explain
+                            *ngIf="uservalidateForm.get('username').dirty && uservalidateForm.get('username').errors || uservalidateForm.get('username').pending">
+                            <ng-container *ngIf="uservalidateForm.get('username').hasError('username')">
+                                The input is not valid user name
+                            </ng-container>
+                            <ng-container *ngIf="uservalidateForm.get('username').pending">
+                                Validating...
+                            </ng-container>
+                        </nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label nzRequired>{{l('Password')}}</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input type="password" formControlName="password" [(ngModel)]="password">
+                        <nz-form-explain
+                            *ngIf="uservalidateForm.get('password')?.dirty && uservalidateForm.get('password')?.errors">
+                            Please
+                            input your password!</nz-form-explain>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div class="common-form-row">
+                <nz-form-item>
+                    <nz-form-label>{{l('Description')}}</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input formControlName="description" [(ngModel)]="description">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+    <div class="common-form-row">
+        <a style="color:red;">{{errorMessage}}</a>
+    </div>
+    <ng-template #modalFooter>
+        <button nz-button nzType="default" (click)="userViewCancel()">{{l('Cancel')}}</button>
+        <button nz-button nzType="primary" [disabled]="!uservalidateForm.valid" (click)="userhandleOk()">{{l('OK')}}</button>
+    </ng-template>
+</nz-modal>

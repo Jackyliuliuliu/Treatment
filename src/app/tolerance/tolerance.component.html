@@ -1,0 +1,215 @@
+<div class="tolerance-table-box FlexCol">
+  <ng-template #templateS let-node>
+    <i class="ant-select-arrow-icon">
+      <svg width="18px" height="18px" viewBox="0 0 18 18">
+        <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+          <polygon id="icon/drop" fill="#DCE0F2"
+            transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+            points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+        </g>
+      </svg>
+    </i>
+  </ng-template>
+  <div class="tolerance-table FlexCol Fill">
+    <div class="left-list FlexRow">
+      <div class="top-list-name FlexCol">
+        <div class="name Fill">{{l('Tolerance List')}}</div>
+        <div class="right-icon">
+          <a class="action"  (click)="AddTolerance()"><img src="../../assets/svg/tianjia.svg" /></a>
+        </div>
+      </div>
+
+      <div class="bottom-tree Fill">
+        <ul class="tree-with-drop">
+          <li class="tree-drop-node FlexCol" *ngFor="let item of nodes" [class.active-node]="item.key == activedNode"
+            (click)="ToleranceTreeNodeClick($event,item.key)">
+            <span class="tree-title Fill">{{item.title}}</span>
+
+            <nz-dropdown (nzVisibleChange)="dropdownChange($event, item.key)" [nzTrigger]="'click'" 
+              [nzClickHide]="false" [nzPlacement]="'bottomRight'" class="tree-cover-icon-dropdown" >
+              <a nz-dropdown class="tree-cover-icon FlexCol">
+                <img class="cover-icon" src="../../assets/svg/gengduo.svg">
+              </a>
+              <ul nz-menu>
+                <li nz-menu-item>
+                  <a  class="common-action" (click) ="CopyClick()">{{l('Copy Tolerance')}}</a>
+                </li>
+                <li nz-menu-item (click)="dropdownVisible = false" >
+                  <a class="common-action" (click) ="DeleteClick()" >{{l('Delete Tolerance')}}</a>
+                </li>
+              </ul>
+            </nz-dropdown>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngIf = "haveToleracne" class="right-form Fill FlexRow">
+      <div class="top-form-box Fill">
+        <form nz-form [formGroup]="form">
+          <div class="common-form-row">
+            <div class="common-form-col">
+              <nz-form-item>
+                  <nz-form-label nzRequired>{{l('Tolerance Name')}}</nz-form-label>
+                <nz-form-control >
+                      <input nz-input formControlName="toleranceTableLabel"   [class.error]="form.controls.toleranceTableLabel.invalid && form.controls.toleranceTableLabel.touched">
+                      <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.toleranceTableLabel.invalid && form.controls.toleranceTableLabel.touched)">该项必填</div> 
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div class="common-form-col">
+                <nz-form-item>
+                  <nz-form-label nzRequired>{{l('Collimator Angle Tolerance(°)')}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName="beamLimitingDeviceAngle" appToleranceDirective [class.error]="form.controls.beamLimitingDeviceAngle.invalid && form.controls.beamLimitingDeviceAngle.touched">
+                    <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDeviceAngle.invalid && form.controls.beamLimitingDeviceAngle.touched)">该项必填,取值范围[0,2],精度为0.1</div> 
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+          </div>
+
+          <div class="common-form-row">
+            <div class="common-form-col">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{l('Technique Tolerance')}}</nz-form-label>
+                <nz-form-control>
+                  <nz-select [nzSuffixIcon]="templateS" formControlName="technique">
+                    <nz-option *ngFor="let i of techniques" [nzLabel]="i.label" [nzValue]="i">
+                    </nz-option>
+                  </nz-select>
+                  <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.technique.invalid && form.controls.technique.touched)">该项必填</div> 
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div class="common-form-col">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{l('Gantry Angle Tolerance(°)')}}</nz-form-label>
+                <nz-form-control>
+                  <input nz-input formControlName="gantryAngle" appToleranceDirective [class.error]="form.controls.gantryAngle.invalid && form.controls.gantryAngle.touched">
+                  <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.gantryAngle.invalid && form.controls.gantryAngle.touched)">该项必填，取值范围[0,360],精度为0.1</div> 
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+          </div>
+
+          <div class="common-form-row">
+            <div class="common-form-col">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{l('Table VRT Tolerance(cm)')}}</nz-form-label>
+                <nz-form-control>
+                  <input nz-input formControlName="tableVRT"  appToleranceDirective [class.error]="form.controls.tableVRT.invalid && form.controls.tableVRT.touched">
+                  <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.tableVRT.invalid && form.controls.tableVRT.touched)">该项必填,取值范围[0,100],精度为0.01</div> 
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div class="common-form-col">
+                <nz-form-item>
+                  <nz-form-label nzRequired>{{l('Table LAT Tolerance(cm)')}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName="tableLAT"  appToleranceDirective [class.error]="form.controls.tableLAT.invalid && form.controls.tableLAT.touched">
+                    <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.tableLAT.invalid && form.controls.tableLAT.touched)">该项必填,取值范围[0,100],精度为0.01</div> 
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+          </div>
+
+          <div class="common-form-row">
+           <div class="common-form-col">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{l('Table LNG Tolerance(cm)')}}</nz-form-label>
+                <nz-form-control>
+                  <input nz-input formControlName="tableLNG"  appToleranceDirective [class.error]="form.controls.tableLNG.invalid && form.controls.tableLNG.touched">
+                  <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.tableLNG.invalid && form.controls.tableLNG.touched)">该项必填,取值范围[0,100],精度为0.01</div> 
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div class="common-form-col">
+              <nz-form-item>
+                <nz-form-label nzRequired>{{l('Patient Support Angle Tolerance(°)')}}</nz-form-label>
+                <nz-form-control>
+                  <input nz-input formControlName="patientSupportAngle"  appToleranceDirective [class.error]="form.controls.patientSupportAngle.invalid && form.controls.patientSupportAngle.touched">
+                  <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.patientSupportAngle.invalid && form.controls.patientSupportAngle.touched)">该项必填,取值范围[0,180],精度为0.1</div> 
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+
+          <div class="common-form-row">
+              <div class="common-form-col">
+                 <nz-form-item>
+                   <nz-form-label nzRequired>{{l('JAW_X Tolerance(cm)')}}</nz-form-label>
+                   <nz-form-control>
+                     <input nz-input formControlName="beamLimitingDevicePosition_X" appToleranceDirective  [class.error]="form.controls.beamLimitingDevicePosition_X.invalid && form.controls.beamLimitingDevicePosition_X.touched">
+                     <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDevicePosition_X.invalid && form.controls.beamLimitingDevicePosition_X.touched)">该项必填,取值范围[0,0.1],精度为0.01</div> 
+                    </nz-form-control>
+                 </nz-form-item>
+               </div>
+   
+               <div class="common-form-col">
+                 <nz-form-item>
+                   <nz-form-label nzRequired>{{l('JAW_Y Tolerance(cm)')}}</nz-form-label>
+                   <nz-form-control>
+                     <input nz-input formControlName="beamLimitingDevicePosition_Y" appToleranceDirective  [class.error]="form.controls.beamLimitingDevicePosition_Y.invalid && form.controls.beamLimitingDevicePosition_Y.touched">
+                     <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDevicePosition_Y.invalid && form.controls.beamLimitingDevicePosition_Y.touched)">该项必填,取值范围[0,0.1],精度为0.01</div> 
+                    </nz-form-control>
+                 </nz-form-item>
+               </div>
+             </div>
+   
+             <div class="common-form-row">
+                <div class="common-form-col">
+                   <nz-form-item>
+                     <nz-form-label nzRequired>{{l('JAW_ASYMX Tolerance(cm)')}}</nz-form-label>
+                     <nz-form-control>
+                       <input nz-input formControlName="beamLimitingDevicePosition_ASYMX" appToleranceDirective  [class.error]="form.controls.beamLimitingDevicePosition_ASYMX.invalid && form.controls.beamLimitingDevicePosition_ASYMX.touched">
+                       <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDevicePosition_ASYMX.invalid && form.controls.beamLimitingDevicePosition_ASYMX.touched)">该项必填,取值范围[0,0.1],精度为0.01</div> 
+                      </nz-form-control>
+                   </nz-form-item>
+                 </div>
+     
+                 <div class="common-form-col">
+                   <nz-form-item>
+                     <nz-form-label nzRequired>{{l('JAW_ASYMX Tolerance(cm)')}}</nz-form-label>
+                     <nz-form-control>
+                       <input nz-input formControlName="beamLimitingDevicePosition_ASYMY"  appToleranceDirective [class.error]="form.controls.beamLimitingDevicePosition_ASYMY.invalid && form.controls.beamLimitingDevicePosition_ASYMY.touched">
+                       <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDevicePosition_ASYMY.invalid && form.controls.beamLimitingDevicePosition_ASYMY.touched)">该项必填,取值范围[0,0.1],精度为0.01</div> 
+                      </nz-form-control>
+                   </nz-form-item>
+                 </div>
+               </div>
+
+               <div class="common-form-row">
+                  <div class="common-form-col">
+                     <nz-form-item>
+                       <nz-form-label nzRequired>{{l('MLCX Tolerance(cm)')}}</nz-form-label>
+                       <nz-form-control>
+                         <input nz-input formControlName="beamLimitingDevicePosition_MLCX"  appToleranceDirective [class.error]="form.controls.beamLimitingDevicePosition_MLCX.invalid && form.controls.beamLimitingDevicePosition_MLCX.touched">
+                         <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDevicePosition_MLCX.invalid && form.controls.beamLimitingDevicePosition_MLCX.touched)">该项必填,取值范围[0,0.1],精度为0.01</div> 
+                        </nz-form-control>
+                     </nz-form-item>
+                   </div>
+                   <div class="common-form-col">
+                    <nz-form-item>
+                      <nz-form-label nzRequired>{{l('MLCY Tolerance(cm)')}}</nz-form-label>
+                      <nz-form-control>
+                        <input nz-input formControlName="beamLimitingDevicePosition_MLCY"  appToleranceDirective [class.error]="form.controls.beamLimitingDevicePosition_MLCY.invalid && form.controls.beamLimitingDevicePosition_MLCY.touched">
+                        <div class = "error-color"    [class.error-explain-visibility] = "!(form.controls.beamLimitingDevicePosition_MLCY.invalid && form.controls.beamLimitingDevicePosition_MLCY.touched)">该项必填,取值范围[0,0.1],精度为0.01</div>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                 </div>
+        </form>
+      </div>
+      <div class="bottom-button-box FlexCol">
+        <button [disabled]="!(form.valid && form.dirty)" class="save-button" nz-button nzType="primary" (click)="UpdateToleracne()">{{l('Save')}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+

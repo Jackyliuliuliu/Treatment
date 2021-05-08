@@ -1,0 +1,8 @@
+<a (click)="showCopyModal()" class="menu-icon" nz-tooltip [nzTitle]="copyTooltip" nzPlacement="bottom">
+    <img class="menu-icon-img" src="../../../../assets/svg/icon_copy.svg" />
+    <ng-template #copyTooltip>
+        <div class="tooltip-template">
+            <p class="middle-text">{{l('Copy')}}</p>
+        </div>
+    </ng-template>
+</a>

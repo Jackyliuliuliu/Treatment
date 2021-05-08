@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/jkinyong</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/jkinyong" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M12,21.5 C6.75329488,21.5 2.5,17.2467051 2.5,12 C2.5,6.75329488 6.75329488,2.5 12,2.5 C17.2467051,2.5 21.5,6.75329488 21.5,12 C21.5,17.2467051 17.2467051,21.5 12,21.5 Z M12,20.5 C16.6944204,20.5 20.5,16.6944204 20.5,12 C20.5,7.30557963 16.6944204,3.5 12,3.5 C7.30557963,3.5 3.5,7.30557963 3.5,12 C3.5,16.6944204 7.30557963,20.5 12,20.5 Z" id="Oval" fill="#DCE0F2"></path>
+        <polygon id="Line" fill="#DCE0F2" points="6 19.2288459 5.29289322 18.5217391 18.3717391 5.44289322 19.0788459 6.15"></polygon>
+    </g>
+</svg>

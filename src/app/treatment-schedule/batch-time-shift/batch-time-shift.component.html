@@ -1,0 +1,65 @@
+<div (nzOnCancel)="close()">
+        <form nz-form [formGroup]="validateForm">
+            <ng-template #templateS let-node>
+                <i class="ant-select-arrow-icon">
+                    <svg width="18px" height="18px" viewBox="0 0 18 18">
+                        <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+                            <polygon id="icon/drop" fill="#DCE0F2"
+                                transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+                                points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+                        </g>
+                    </svg>
+                </i>
+            </ng-template>
+            <div class="common-form-box FlexRow">
+                <div class="common-form-row">
+                    <nz-form-item>
+                        <nz-form-control>
+                                <div>
+                                <p style="color: white;">{{activeStatusWarning}}</p>
+                                </div>
+                                <div>
+                                    <p style="color: white;">{{completedStatusWarning}}</p>
+                                </div>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label nzRequired>{{l('Action')}}</nz-form-label>
+                        <nz-form-control>
+                            <nz-select [nzSuffixIcon]="templateS" formControlName="delayAhead" [(ngModel)]="delayAhead">
+                                <nz-option *ngFor="let option of optionList" [nzValue]="option.value"
+                                    [nzLabel]="option.label"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-row">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>{{l('Hours')}}</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input formControlName="hours" [(ngModel)]="hours" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-row">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>{{l('Minutes')}}</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input placeholder="请输入" formControlName="minutes" [(ngModel)]="minutes" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="common-form-row">
+                    <nz-form-item>
+                        <nz-form-control [nzOffset]="12" [nzSpan]="12">
+                            <button nz-button style="margin: 20px;"
+                                (click)="close()">{{l('Cancel')}}</button>
+                            <button nz-button style="margin: 20px;" nzType="primary"
+                                (click)="onConfirm()" [disabled]="!validateForm.valid">{{l('OK')}}</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+    </div>

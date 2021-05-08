@@ -1,0 +1,53 @@
+<div (nzOnCancel)="close()">
+    <form nz-form [formGroup]="scheduleDateForm">
+        <div class="common-content-box">
+            <div class="FlexCol common-input-row">
+                <h4 style="color: white;">单个</h4>
+            </div>
+        </div>
+        <nz-radio-group formControlName="singleRadioControl" [(ngModel)]="dateRadioValue">
+            <div class="FlexCol common-input-row">
+                <div class="common-input-item FlexCol">
+                    <div class="label">
+                        <label nz-radio formControlName="singleDateChangeRadioControl" nzValue="Single">选中项修改至</label>
+                    </div>
+                    <div class="right-input">
+                        <nz-date-picker formControlName="singleSessionDateControl" [(ngModel)]="singleSessionDate" [nzDisabledDate]="disabledDate"></nz-date-picker>
+                    </div>
+                </div>
+            </div>
+            <div class="FlexCol common-input-row">
+                <div class="common-input-item FlexCol">
+                    <div class="label">
+                        <label nz-checkbox formControlName="isAllControl" [(ngModel)]="isAll" [nzDisabled]="dateRadioValue==='Multi'">修改选中项之后所有</label>
+                    </div>
+                </div>
+            </div>
+            <div class="FlexCol common-input-row">
+                <h4 style="color: white;">多个</h4>
+            </div>
+            <div class="FlexCol common-input-row">
+                <div class="common-input-item FlexCol">
+                    <div class="label">
+                            <label nz-radio formControlName="multiDateChangeRadioControl" nzValue="Multi">选中项修提前/延后</label>
+                    </div>
+                    <div class="right-input">
+                            <nz-date-picker formControlName="multiSessionDateControl" [(ngModel)]="multiSessionDate" [nzDisabledDate]="disabledDate"></nz-date-picker>
+                    </div>
+                </div>
+            </div>
+        </nz-radio-group>
+        <div class="common-form-row">
+            <a style="color:red;">{{errmessage}}</a>
+        </div>
+        <div class="common-form-row">
+            <nz-form-item>
+                <nz-form-control [nzOffset]="12" [nzSpan]="12">
+                        <button nz-button style="margin: 20px;" (click)="close()">{{l('Cancel')}}</button>
+                        <button nz-button style="margin: 20px;" nzType="primary" (click)="onConfirm()"  [disabled]="!scheduleDateForm.valid || isDisabled">{{l('OK')}}</button>
+                </nz-form-control>
+        
+            </nz-form-item>
+        </div>
+    </form>
+</div>

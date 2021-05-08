@@ -1,0 +1,69 @@
+.grouptree  .node-wrapper {display: flex; align-items: flex-start;}
+.grouptree  .node-content-wrapper-active{
+    background:none;//点击选中一个beamgroup，然后添加一个beamgroup，会高亮显示两个选中项通，应该是点击选中项的isactive为true。
+    box-shadow: none;
+}
+.grouptree  .node-content-wrapper.node-content-wrapper-active:hover,
+.grouptree  .node-content-wrapper-active.node-content-wrapper-focused {
+    background: #326e43;;
+    width: 100%;//使宽度保持最大宽度
+    box-shadow: none;
+}
+.grouptree .node-content-wrapper-focused { 
+    background: #326e43;;
+    width: 100%;
+    box-shadow: none;
+}
+.grouptree .node-content-wrapper{
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+    span {
+        color: #ffffff;//设置字体颜色
+    }
+    
+}
+.grouptree .node-content-wrapper:hover { 
+    background: rgba(50, 110, 67, 0.4);//#326e43 加上透明度
+    width: 100%;
+    box-shadow: none;
+}
+.tree-children {
+    padding-left: 0;//使tree的子节点边框从最左边开始
+}
+.ant-layout-sider {
+    background: #23262b;
+}
+.grouptree .toggle-children-wrapper{
+    padding: 0;//如果不设为0，原本的toggle会因为padding，宽和高会大于13px
+}
+.grouptree .toggle-children {
+    // position: relative;
+    // padding-left: 0;
+    margin-left: 14px;//toggle向左偏移14
+    margin-right: 10px;
+    top:2px;  //使toggle居中显示
+    background-image:url('../assets/svg/icon_expanded.svg');
+    height:16px;
+    width:16px;
+    transform:none;
+}
+.grouptree .toggle-children-wrapper-expanded .toggle-children{
+    background-image:url('../assets/svg/icon_collapsed.svg');
+}
+.grouptree .toggle-children-wrapper-collapsed .toggle-children{
+    background-image:url('../assets/svg/icon_expanded.svg');
+}
+//当父节点没有children时，让其对齐有子节点的父节点
+.grouptree .toggle-children-placeholder {
+    height: 16px;
+    width: 16px;
+    padding: 0;
+    margin-left: 14px;//toggle向左偏移14
+    margin-right: 10px;
+}
+.grouptree .node-drop-slot { 
+    height: 0;//使树的节点之间的间隔为0
+}
+
+

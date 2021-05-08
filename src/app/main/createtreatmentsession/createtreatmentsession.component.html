@@ -1,0 +1,8 @@
+<a (click)="CreateSessionClicked()" class="menu-icon" nz-tooltip [nzTitle]="addsessionTooltip" [class.disable]="isEditPermission===false || selectNode===null" nzPlacement="bottom">
+    <img class="menu-icon-img" img src="../../../assets/svg/icon_unknow.svg" />
+    <ng-template #addsessionTooltip>
+        <div class="tooltip-template">
+            <p class="middle-text">{{l('Add Treatment Session')}}</p>
+        </div>
+    </ng-template>
+</a>

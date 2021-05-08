@@ -1,0 +1,20 @@
+<div class="common-tab-div FlexCol">
+    <div class="left-module-select">
+        <nz-dropdown [nzTrigger]="'click'" class="nz-dropdown-style">
+            <a nz-dropdown class="module-value">{{menuVal}}<img class="extra-icon" src="../../assets/svg/zhankai2.svg"></a>
+            <ul nz-menu>
+                <li nz-menu-item (click)="changeModule('RVS')">RVS</li>
+                <li nz-menu-item (click)="changeModule('TMS')">TMS</li>
+                <li nz-menu-item (click)="changeModule('TPS')">TPS</li>
+            </ul>
+        </nz-dropdown>
+    </div>
+    
+   
+    <div class="common-tab" *ngFor="let module of moduleMap; index as i" [class.active-tab]="moduleSelectedIndex === i"
+        (click)="selectedIndexChange(i)">{{ module.Name }}</div> 
+    <!-- <div>
+        <app-license class="secondlevel-width-style" #LicenseView></app-license>
+        <div class="common-tab" (click)="btnLicenseOnClick()">License</div>
+    </div> -->
+</div>

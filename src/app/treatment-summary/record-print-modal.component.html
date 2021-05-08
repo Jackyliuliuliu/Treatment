@@ -1,0 +1,35 @@
+<div class="print-content">
+    <ng-template #templateS let-node>
+        <i class="ant-select-arrow-icon">
+            <svg width="18px" height="18px" viewBox="0 0 18 18">
+                <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+                    <polygon id="icon/drop" fill="#DCE0F2"
+                        transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+                        points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+                </g>
+            </svg>
+        </i>
+    </ng-template>
+    <div class="common-form-box FlexRow">
+        <div class="common-form-row">
+            <nz-form-item>
+                <nz-form-label nzNoColon="true">{{l('BeamGroup')}}</nz-form-label>
+                <nz-form-control>
+                    <nz-select [nzSuffixIcon]="templateS" nzPlaceHolder="BeamGroup To Print"
+                        [(ngModel)]="selectedBeamGroupId">
+                        <nz-option *ngFor="let beamGroup of beagroupList " [nzValue]="beamGroup.id"
+                            [nzLabel]="beamGroup.value">
+                        </nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+
+    <div class="bottom-button FlexCol">
+        <button nz-button type="button" [nzType]="'default'" (click)="cancel()">{{l('Cancel')}}</button>
+        <button nz-button type="button" (click)="print()" [nzType]="'primary'"
+            [disabled]="selectedBeamGroupId === undefined">{{l('OK')}}</button>
+    </div>
+</div>

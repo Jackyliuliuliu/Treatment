@@ -1,0 +1,164 @@
+<div class="machine-treatment-schedule Fill FlexRow">
+    <ng-template #templateS let-node>
+        <i class="ant-select-arrow-icon">
+            <svg width="18px" height="18px" viewBox="0 0 18 18">
+                <g id="icon/jiantou" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="18" height="18"></rect>
+                    <polygon id="icon/drop" fill="#DCE0F2"
+                        transform="translate(8.781000, 9.500000) rotate(-90.000000) translate(-8.781000, -9.500000) "
+                        points="11.562 6.062 8.106 9.5 11.562 12.938 10.5 14 6 9.5 10.5 5"></polygon>
+                </g>
+            </svg>
+        </i>
+    </ng-template>
+    <div class="top-check-div FlexCol">
+        <div class="left-input-row FlexCol Fill">
+            <div class="common-input-item FlexCol">
+                <label class="label">{{l('Machine')}}</label>
+                <div class="right-input">
+                    <nz-select nzPlaceHolder="Select a Machine"
+                    [(ngModel)]="queryCondition.machineName"
+                    (ngModelChange)="queryConditionChanged()"
+                    [nzSuffixIcon]="templateS" >
+                        <nz-option *ngFor="let item of machinelist" [nzValue]="item" [nzLabel]="item">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="common-input-item FlexCol" >
+                    <label class="label">{{l('SessionDate')}}(yyyy-MM-dd)</label>
+                    <div class="right-input FlexRow range-picker-box">
+                        <nz-range-picker [nzAllowClear]="true" [(ngModel)]="queryCondition.sessionDateRange" (ngModelChange)="queryConditionChanged()"></nz-range-picker>
+                    </div>
+            </div>
+            <div class="common-input-item FlexCol">
+                <label class="label">{{l('Status')}}</label>
+                <div class="right-input">
+                    <nz-select nzPlaceHolder="Select a Status" [(ngModel)]="queryCondition.sessionStatus" (ngModelChange)="queryConditionChanged()"
+                        [nzSuffixIcon]="templateS">
+                        <nz-option *ngFor="let item of sessionStatusList" [nzValue]="item" [nzLabel]="l(item.name)">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+            <div class="common-input-item FlexCol">
+                    <label  class="label">{{l('Patient Name')}}</label>
+                    <div class="right-input">
+                        <input nz-input [(ngModel)]="queryCondition.patientName"  (ngModelChange)="queryConditionDelayChanged()">
+                    </div>
+            </div>
+            <div class="common-input-item FlexCol">
+                <label class="label">{{l('PatientID')}}</label>
+                <div class="right-input">
+                    <input nz-input [(ngModel)]="queryCondition.patientId" (ngModelChange)="queryConditionDelayChanged()"> 
+                </div>
+            </div>
+        </div>
+        <div class='right-button-group'>
+            <button class="clear-btn" nz-button nzType="default" (click)="resetQueryCondition()">{{l('Reset')}}</button>
+        </div>
+    </div>
+    <div class="top-toolbar FlexCol">
+        <div class="Fill left-toolbar FlexCol">
+            <div class="tool-box">
+                <a class="tool-icon" (click)="batchInActive()" [class.disable]="!isActiveEditable"><img class="tool-img"  
+                        src="../../assets/svg/icon_weijihuo2.svg"></a>
+                <p class="text">{{l('InActive')}}</p>
+            </div>
+            <div class="tool-box">
+                <a class="tool-icon" (click)="batchActive()"  [class.disable]="!isActiveEditable"><img class="tool-img"  
+                        src="../../assets/svg/icon_jihuo2.svg"></a>
+                <p class="text">{{l('Active')}}</p>
+            </div>
+            <div class="tool-box">
+                <a class="tool-icon" (click)="batchDelete()" [class.disable]="!isDeleteEditable"><img class="tool-img"  
+                        src="../../assets/svg/icon_piliangshanchu.svg"></a>
+                <p class="text">{{l('Delete')}}</p>
+            </div>
+            <div class="tool-box">
+                <a class="tool-icon" (click)="changeSessionTime()" [class.disable]="!isDatetimeEditable"><img class="tool-img"  
+                        src="../../assets/svg/icon_piliangtiaoshi.svg"></a>
+                <p class="text">{{l('Change Time')}}</p>
+            </div>
+            <div class="tool-box">
+                <a class="tool-icon" (click)="changeSessionDate()" [class.disable]="!isDatetimeEditable"> <img class="tool-img" 
+                        src="../../assets/svg/icon_bianjizhebidangqian.svg"></a>
+                <p class="text">{{l('Change Date')}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-content Fill FlexRow">
+        <div class="table-info-div FlexCol">
+            <p class="text">{{l('Selected')}} <span>{{numberOfCheckedItems}}</span> {{l('Items')}}</p>
+            <p class="text">{{l('Total')}} <span>{{totalItems}}</span>{{l('Items')}}</p>
+        </div>
+        <div class="table-content Fill" #mTableView>
+            <nz-table  class="table-box" #nzTable [nzFrontPagination]="false" [nzData]="listOfData" [nzTotal]="totalItems"
+                [(nzPageIndex)]="pageNumber" [(nzPageSize)]="pageSize" [nzLoading]="isTableLoading" [nzBordered]="true"
+                [nzShowSizeChanger]="true" (nzPageIndexChange)="refresh()" (nzPageSizeChange)="refresh()"
+                [nzScroll]="{ y: tableHeight, x: '1400px' }">
+                <thead (nzSortChange)="sort($event)" nzSingleSort>
+                    <tr>
+                        <th nzWidth="3%"  nzShowCheckbox 
+                        [(nzChecked)]="isAllDisplayDataChecked"
+                        [nzIndeterminate]="isIndeterminate"
+                        (nzCheckedChange)="checkAll($event)"></th>                    
+                        <th nzShowSort nzSortKey="scheduledDate"><span>{{l('Scheduled Date')}}(yyyy/MM/dd)</span></th>
+                        <th><span>{{l('Scheduled Time')}}(HH:mm)</span></th>
+                        <th nzWidth="8%" nzShowSort nzSortKey="patientId"><span>{{l('PatientID')}}</span></th>
+                        <th nzWidth="15%" nzShowSort nzSortKey="patientName"><span>{{l('Patient Name')}}</span></th>
+                        <th nzWidth="10%" nzShowSort nzSortKey="machineName"><span>{{l('Machine')}}</span></th>
+                        <th nzWidth="8%" nzShowSort nzSortKey="beamType"><span>{{l('Beam Type')}}</span></th>
+                        <th nzWidth="8%" nzShowSort nzSortKey="beamGroupName"><span>{{l('Beam Group')}}</span></th>
+                        <th nzWidth="3%" nzShowSort nzSortKey="fractionNumber"><span>{{l('Fraction No.')}}</span></th>
+                        <th nzWidth="5%" nzShowSort nzSortKey="status"><span>{{l('Status')}}</span></th>
+                        <th nzWidth="5%" nzShowSort nzSortKey="isActive"><span>{{l('IsActive')}}</span></th>
+                        <th nzWidth="5%"> <span>操作</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr [class.selected-tr]="i === selectedRowIndex"
+                        *ngFor="let item of nzTable.data; let i = index" 
+                        [class.blue-tr]="item.isBlue">
+                        <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[item.id]" (nzCheckedChange)="refreshStatus(item.id)" ></td>                   
+                        <td class="overflow-td" style="width: 15%;">{{ item.scheduledDate | data2string}}</td>
+                        <td class="overflow-td" style="width: 10%;">{{ item.scheduledDate | time2string}}</td>
+                        <td class="overflow-td">{{ item.patientId }}</td>
+                        <td class="overflow-td">{{ item.patientName }}</td>
+                        <td class="overflow-td">{{ item.machineName }}</td>
+                        <td class="overflow-td">{{ item.beamType }}</td>
+                        <td class="overflow-td">{{ item.beamGroupName }}</td>
+                        <td class="overflow-td">{{ item.fractionNumber}}</td>
+                        <td class="overflow-td">{{ l(item.status.name) }}</td>
+                        <td class="overflow-td"> {{ l(item.isActive | bool2active)}}</td>
+                        <td class="overflow-td">                     
+                            <nz-dropdown [nzTrigger]="'click'" [nzClickHide]="false" [nzPlacement]="'bottomRight'"
+                                (nzVisibleChange)="dropdownVisibleChanged($event, i)">
+                                <div nz-dropdown class="common-cover-icon FlexCol">
+                                    <img class="cover-icon" src="../../assets/svg/gengduo.svg">
+                                </div>
+                                <ul nz-menu>
+                                    <li nz-menu-item (click)="dropdownVisible = false">
+                                        <a class="common-action" (click)="singleDelete(item)"  [class.disable]="!isDeleteEditable">{{l('Delete')}}</a>
+                                    </li>
+                                    <li nz-menu-item (click)="dropdownVisible = false">
+                                        <a class="common-action" (click)="singleSessionInActive(item)"  [class.disable]="!isActiveEditable">{{l('InActive')}}</a>
+                                    </li>
+                                    <li nz-menu-item (click)="dropdownVisible = false">
+                                        <a class="common-action" (click)="singleSessionActive(item)"   [class.disable]="!isActiveEditable">{{l('Active')}}</a>
+                                    </li>
+                                    <li nz-menu-item (click)="dropdownVisible = false">
+                                        <a class="common-action" [class.disable]="!isDatetimeEditable" (click)="singleChangeSessionTime(item)">{{l('Change Time')}}</a>
+                                    </li>
+                                    <li nz-menu-item (click)="dropdownVisible = false">
+                                        <a class="common-action" [class.disable]="!isDatetimeEditable"  (click)="singleChangeSessionDate(item)">{{l('Change Date')}}</a>
+                                    </li>                   
+                                </ul>
+                            </nz-dropdown>                   
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</div>

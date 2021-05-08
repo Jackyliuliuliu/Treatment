@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/jihuo2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/jihuo2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M5,6 C2.790861,6 1,7.790861 1,10 C1,12.209139 2.790861,14 5,14 L15,14 C17.209139,14 19,12.209139 19,10 C19,7.790861 17.209139,6 15,6 L5,6 Z M5,5 L15,5 C17.7614237,5 20,7.23857625 20,10 C20,12.7614237 17.7614237,15 15,15 L5,15 C2.23857625,15 4.4408921e-16,12.7614237 0,10 C-4.4408921e-16,7.23857625 2.23857625,5 5,5 Z" id="Rectangle-Copy-3" fill="#DCE0F2"></path>
+        <circle id="Oval-Copy" fill="#DCE0F2" opacity="0.5" cx="15" cy="10" r="3"></circle>
+        <polygon id="Path-10-Copy" fill="#DCE0F2" points="9.63195305 7.26156 10.3680469 7.93843944 5.93485918 12.7594493 3.58257189 9.19190042 4.41742811 8.64143236 6.06514082 11.1404024"></polygon>
+    </g>
+</svg>

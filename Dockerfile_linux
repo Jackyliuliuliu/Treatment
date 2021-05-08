@@ -1,0 +1,10 @@
+FROM node AS builder
+WORKDIR /web
+COPY ./src/Web/Treatment .
+RUN npm i
+RUN npm run build
+
+FROM nginx AS final
+WORKDIR /usr/share/nginx/html
+COPY --from=builder ./web/dist/. /usr/share/nginx/html
+COPY --from=builder ./web/nginx.conf /etc/nginx

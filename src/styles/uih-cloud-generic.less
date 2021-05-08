@@ -1,0 +1,912 @@
+/* Less CSS Document */
+/* Will be auto compiled to CSS file on save */
+/* ----------------------------
+         Base CSS Style
+---------------------------- */
+html {
+  font-size: 10px;
+  line-height: 10px;
+  height: 100%;
+}
+
+body {
+  font-size: 1.4em;
+  font-family: "Microsoft Yahei", verdana, arial;
+}
+
+.main {
+  height: 100%;
+  overflow: hidden;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+textarea,
+blockquote,
+th,
+td,
+p,
+a,
+label {
+  padding: 0px;
+  margin: 0;
+  line-height: 30px;
+  color: #222;
+}
+
+label {
+  color: #525e66;
+  font-weight: normal;
+  border-width: 1px 0;
+  border-color: transparent;
+}
+
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+*:focus {
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+a:hover {
+  color: #0d47a1;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 0 none;
+  background-color: transparent;
+}
+
+ol,
+ul,
+li,
+dl,
+dd,
+dt,
+iframe,
+pre {
+  list-style: none;
+}
+
+form {
+  display: inline;
+}
+
+table,
+img {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+}
+
+th {
+  background-color: #f5f7fa;
+  color: #525e66;
+  height: 50px;
+  line-height: 50px;
+}
+
+input::-webkit-input-placeholder {
+  color: #97a0a6;
+}
+
+.auto {
+  overflow: auto;
+}
+
+h1 {
+  font-size: 2.4em;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+h2,
+h3 {
+  font-size: 1.6em;
+}
+
+h4,
+h5 {
+  font-size: 1.3em;
+  line-height: 2em;
+  text-decoration: none;
+  margin: 0px;
+}
+
+h6 {
+  font-size: 0.8em;
+}
+
+hr {
+  margin: auto;
+  border: 0;
+  min-height: 1px;
+  min-width: 1px;
+  background-color: #A1A9B3;
+  padding: 0;
+  clear: both;
+}
+
+input,
+button,
+textarea {
+  -webkit-appearance: none !important;
+  outline: none !important;
+  appearance: none !important;
+  -moz-appearance: none !important;
+  border-radius: 0;
+}
+
+button,
+input:not([type="text"]) {
+  cursor: pointer;
+}
+
+* {
+  -webkit-overflow-scrolling: touch;
+  transition-property: color, background-color, border;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
+/*重置属性*/
+time {
+  display: block;
+}
+
+hgroup {
+  position: fixed;
+  left: 50%;
+  top: 20%;
+  z-index: 100;
+  padding: 0px;
+  overflow: visible;
+  display: none;
+}
+
+a:link,
+a:hover,
+.Hand {
+  cursor: pointer;
+}
+
+button,
+input,
+textarea {
+  border: 1px solid #ECECEE;
+  padding: 0 12px;
+  vertical-align: middle;
+  font-family: inherit;
+  min-width: 0;
+}
+
+button[type=number],
+input[type=number],
+textarea[type=number] {
+  padding: 0 0 0 6px;
+}
+
+button:disabled,
+input:disabled,
+textarea:disabled,
+button[readonly="readonly"],
+input[readonly="readonly"],
+textarea[readonly="readonly"] {
+  opacity: 0.5;
+  filter: grayscale(70%);
+}
+
+button:disabled img,
+input:disabled img,
+textarea:disabled img,
+button[readonly="readonly"] img,
+input[readonly="readonly"] img,
+textarea[readonly="readonly"] img {
+  opacity: 0.5;
+}
+
+textarea {
+  cursor: text;
+  height: auto;
+  background-color: #2b2f36;
+  border-radius: 2px;
+  border: none;
+  resize: none;
+  font-size: 14px;
+  color: #FFFFFF;
+  padding: 10px 14px;
+}
+
+input::-webkit-input-placeholder {
+  color: white;
+}
+
+input:-moz-placeholder {
+  color: white;
+}
+
+input::-moz-placeholder {
+  color: white;
+}
+
+input:-ms-input-placeholder {
+  color: white;
+}
+i {
+  font-style: normal;
+}
+
+img {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  border: 1px solid #5a5d69;
+  background-color: #3b9b4d;
+  border-radius: 2.727272727272727px;
+  width: 15px;
+  height: 15px;
+}
+
+body {
+  -o-user-select: none;
+  -moz-user-select: none;
+  /*火狐 firefox*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -ms-user-select: none;
+  /*IE10+*/
+  user-select: none;
+}
+
+/* ----------------------------
+         Margin
+---------------------------- */
+.mz {
+  margin: 0;
+}
+
+.ma {
+  margin: auto;
+}
+
+.m5_tb {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.m0_t {
+  margin-top: 0;
+}
+
+.m5_t {
+  margin-top: 5px;
+}
+
+.m5_b {
+  margin-bottom: 5px;
+}
+
+.m5 {
+  margin: 5px;
+}
+
+.m45_l {
+  margin-left: 45px;
+}
+
+.m30_b {
+  margin-bottom: 30px;
+}
+
+.m25_r {
+  margin-right: 25px;
+}
+
+.m5_l {
+  margin-left: 5px;
+}
+
+.m5_r {
+  margin-right: 5px;
+}
+
+.m10_l {
+  margin-left: 10px;
+}
+
+.m25_l {
+  margin-left: 25px;
+}
+
+.m30_r {
+  margin-right: 30px;
+}
+
+.m20_r {
+  margin-right: 20px;
+}
+
+.m50_t {
+  margin-top: 50px;
+}
+
+.m15_l {
+  margin-left: 15px;
+}
+
+.m50_l {
+  margin-left: 50px;
+}
+
+.m15_r {
+  margin-right: 15px;
+}
+
+.m40_l {
+  margin-left: 40px;
+}
+
+.m25_t {
+  margin-top: 25px;
+}
+
+.m3_r {
+  margin-right: 3px;
+}
+
+.m3_t {
+  margin-top: 3px;
+}
+
+.m3_l {
+  margin-left: 3px;
+}
+
+.m60_l {
+  margin-left: 60px;
+}
+
+.ml_auto {
+  margin-left: auto;
+}
+.mt_auto{
+  margin-top: auto;
+}
+.mb_auto{
+  margin-bottom: auto;
+}
+.m30_lr {
+  margin: 0 30px;
+}
+
+.m15_b {
+  margin-bottom: 15px;
+}
+
+.mr_auto {
+  margin-right: auto;
+}
+
+.m10_r {
+  margin-right: 10px;
+}
+
+.m10_t {
+  margin-top: 10px;
+}
+
+.m40_r {
+  margin-right: 40px;
+}
+
+.m15_t {
+  margin-top: 15px;
+}
+
+.m30_t {
+  margin-top: 30px;
+}
+
+.m40_t {
+  margin-top: 40px;
+}
+
+.m20_t {
+  margin-top: 20px;
+}
+
+.m0_b {
+  margin-bottom: 0;
+}
+
+.m10_b {
+  margin-bottom: 10px;
+}
+
+.m20_l {
+  margin-left: 20px;
+}
+
+.m20_b {
+  margin-bottom: 20px;
+}
+
+.m40_b {
+  margin-bottom: 40px;
+}
+
+.m20_lr {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.m20_tb {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.m10 {
+  margin: 10px;
+}
+
+.m20 {
+  margin: 20px;
+}
+
+.m30 {
+  margin: 30px;
+}
+
+.m8_r {
+  margin-right: 8px;
+}
+
+.m10_lr {
+  margin: 0 10px;
+}
+
+.m30_l {
+  margin-left: 30px;
+}
+
+.m1_l {
+  margin-left: 1px;
+}
+
+.m1_r {
+  margin-right: 1px;
+}
+
+.mt_8 {
+  margin-top: 8px;
+}
+
+.ml_-10 {
+  margin-left: -10px;
+}
+.m25_b{
+  margin-bottom: 25px;
+}
+.m50_l{
+  margin-left: 50px;
+}
+/* ----------------------------
+         Padding
+---------------------------- */
+.p60_l {
+  padding-left: 60px;
+}
+
+.p15_r {
+  padding-right: 15px;
+}
+
+.p15_lr {
+  padding: 0 15px;
+}
+.p15_l {
+  padding-left: 15px;
+}
+.p25 {
+  padding: 0 25px;
+}
+
+.p20_t {
+  padding-top: 20px;
+}
+
+.p10_l {
+  padding-left: 10px;
+}
+
+.p0_l {
+  padding-left: 0;
+}
+
+.p20_l {
+  padding-left: 20px;
+}
+
+.p10_r {
+  padding-right: 10px;
+}
+
+.p10_t {
+  padding-top: 10px;
+}
+
+.p10_b {
+  padding-bottom: 10px;
+}
+
+.p20_b {
+  padding-bottom: 20px;
+}
+
+.p20_lr {
+  padding: 0 20px;
+}
+
+.p20_tb {
+  padding: 20px 0;
+}
+
+.p25_b {
+  padding-bottom: 25px;
+}
+
+.p35_b {
+  padding-bottom: 35px;
+}
+
+.p14_b {
+  padding-bottom: 14px;
+}
+
+.p15_b {
+  padding-bottom: 15px;
+}
+
+.p15 {
+  padding: 15px;
+}
+
+.p5_r {
+  padding-right: 5px;
+}
+
+.p5 {
+  padding: 5px;
+}
+
+.p5_t {
+  padding-top: 5px;
+}
+
+.p5_b {
+  padding-bottom: 5px;
+}
+
+.p10 {
+  padding: 10px;
+}
+
+.p30 {
+  padding: 30px;
+}
+
+.p0 {
+  padding: 0;
+}
+.p40_r{
+  padding-right: 40px;
+}
+.p40_l{
+  padding-left: 40px;
+}
+.p20_r{
+  padding-right: 20px;
+}
+.p20_l{
+  padding-left: 20px;
+}
+.p25_r{
+  padding-right: 25px;
+}
+.p25_l{
+  padding-left: 25px;
+}
+/* ----------------------------
+         Display
+---------------------------- */
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.none {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.inline {
+  display: inline;
+}
+
+/* ----------------------------
+         Scroll
+---------------------------- */
+.scrollH {
+  overflow: hidden;
+}
+
+.scrollYA {
+  overflow-y: auto;
+}
+
+.scrollXA {
+  overflow-x: auto;
+}
+
+.scrollYH {
+  overflow-y: hidden;
+}
+
+.scrollXH {
+  overflow-x: hidden;
+}
+
+.scrollV {
+  overflow: visible;
+}
+
+/* ----------------------------
+         Cursor
+---------------------------- */
+.hand {
+  cursor: pointer;
+}
+
+.default {
+  cursor: default;
+}
+
+/* ----------------------------
+         Border
+---------------------------- */
+.clearborder {
+  border: none;
+}
+
+.clearlborder {
+  border-left: none;
+}
+
+.clearrborder {
+  border-right: none;
+}
+
+/* ----------------------------
+         Font
+---------------------------- */
+.fsnormal {
+  font-style: normal;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.largesize {
+  font-size: -webkit-xxx-large;
+}
+
+.smallsize {
+  font-size: small;
+}
+
+/* ----------------------------
+         Float
+---------------------------- */
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+/* ----------------------------
+         Text-Align
+---------------------------- */
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* ----------------------------
+         Width/Height
+---------------------------- */
+.wFill {
+  width: 100%;
+}
+
+.hFill {
+  height: 100%;
+}
+
+.halfWFill {
+  width: 50%;
+}
+
+.halfHFill {
+  height: 50%;
+}
+
+/* ----------------------------
+         Position
+---------------------------- */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+/* ----------------------------
+         Visibility
+---------------------------- */
+.invisible {
+  visibility: hidden;
+}
+
+/* ----------------------------
+         Rotate
+---------------------------- */
+.rotate-reverseY {
+  transform: rotateY(180deg);
+}
+
+/* ----------------------------
+         Flex
+---------------------------- */
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+/* ----------------------------
+         Vertical-align
+---------------------------- */
+.vertical-middle {
+  vertical-align: -webkit-baseline-middle;
+}
+
+/* ----------------------------
+         Flex Layout
+---------------------------- */
+.FlexCol {.FlexCol}
+.FlexRow {.FlexRow;}
+.flow {.flow}
+.Fill0 {.Fill(initial) !important;}
+.Fill {.Fill}
+.Fill2 {.Fill(2) !important;}
+.Fill3 {.Fill(3) !important;}
+.Fill4 {.Fill(4) !important;}
+.Fill5 {.Fill(5) !important;}
+.FlexCol(@flex:flex,@Row:row,@wrap:nowrap) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+	display: -moz-flex;
+	display: -webkit-flex;
+    display: @flex;
+	-webkit-box-orient: horizontal;
+	//horizontal    vertical
+	-moz-box-direction: @Row;
+	-ms-flex-direction: @Row;
+	-webkit-flex-direction: @Row;
+	flex-direction: @Row;
+	-webkit-box-wrap: @wrap;
+	-moz-box-wrap: @wrap;
+	-ms-flex-wrap: @wrap;
+	-webkit-flex-wrap: @wrap;
+	flex-wrap: @wrap;
+}
+.FlexRow(@flex:flex,@Col:column,@wrap:nowrap) {
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+	display: -moz-flex;
+	display: -webkit-flex;
+    display: @flex;
+	-webkit-box-orient: vertical;
+	-moz-box-direction: @Col;
+	-ms-flex-direction: @Col;
+	-webkit-flex-direction: @Col;
+	flex-direction: @Col;
+	-webkit-box-wrap: @wrap;
+	-moz-box-wrap: @wrap;
+	-ms-flex-wrap: @wrap;
+	-webkit-flex-wrap: @wrap;
+	flex-wrap: @wrap;
+}
+.flow(@flex: row,@flow: nowrap) {
+	-webkit-box-orient: horizontal;
+	-moz-box-direction: @flex;
+	-ms-flex-direction: @flex;
+	flex-direction: @flex;
+	-webkit-flex-wrap: @flow;
+	-moz-flex-wrap: @flow;
+	-ms-flex-wrap: @flow;
+	-o-flex-wrap: @flow;
+	flex-wrap: @flow;
+}
+.Fill(@fill:1) {
+    -webkit-box-flex: @fill;
+    -moz-box:@fill;
+	-webkit-flex: @fill;
+    -ms-flex: @fill;
+    flex: @fill;
+}
+.ellipsis{
+    display: inline;
+    zoom: 1;     
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}

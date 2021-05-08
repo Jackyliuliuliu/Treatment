@@ -1,0 +1,47 @@
+<a nz-tooltip 
+class="menu-icon" 
+[nzTitle]="deleteBeamToolTip" 
+nzPlacement="bottomLeft" 
+(click)="onDeleteBeamClick()"
+[class.disable] = "isDisable_addbeam">
+      <img class="menu-icon-img" src="../../../../../assets/svg/icon_delete.svg" />
+      <ng-template #deleteBeamToolTip>
+            <div class="tooltip-template">
+                  <p class="middle-text">{{l('Delete')}}</p>
+            </div>
+      </ng-template>
+</a>
+
+<nz-modal [nzVisible]="isVisible_deletebeam"  nzMaskClosable = "false" [nzTitle]="l('Delete Beam')"  nzWidth="560px" nzWrapClassName="vertical-center-modal" (nzOnCancel)="DeletebeamhandleCancel()" [nzFooter]="modalFooter" >
+     
+      <form nz-form [formGroup]="form" >
+            <div class="common-form-box FlexRow">
+                  <div class="common-form-row">
+                        <nz-row>
+                              <nz-form-item>
+                                    <nz-form-label nzRequired nzNoColon="true">{{l('UserName')}}</nz-form-label>
+                                    <nz-form-control>
+                                          <input nz-input formControlName="userName" [class.error]="form.controls.userName.invalid && form.controls.userName.touched">
+                                    </nz-form-control>
+                              </nz-form-item>
+                        </nz-row>
+                  </div>
+
+                  <div class="common-form-row">
+                        <nz-row>
+                              <nz-form-item>
+                                    <nz-form-label nzRequired nzNoColon="true">{{l('Password')}}</nz-form-label>
+                                    <nz-form-control>
+                                          <input type="password" nz-input formControlName="password" [class.error]="form.controls.password.invalid && form.controls.password.touched">
+                                    </nz-form-control>
+                              </nz-form-item>
+                        </nz-row>
+                  </div>
+            </div>
+      </form>
+      <div *ngIf="!isUserAvailable" class = "red">用户名和密码错误！</div>
+      <ng-template #modalFooter>
+            <button nz-button nzType="default" (click)="DeletebeamhandleCancel()">{{l('Cancel')}}</button>
+            <button [disabled] = "form.invalid"  nz-button nzType="primary" (click)="DeletebeamhandleOk()">{{l('OK')}}</button>
+          </ng-template>
+</nz-modal>

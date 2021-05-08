@@ -1,0 +1,15 @@
+<nz-modal [(nzVisible)]="isConfirmViewVisible" nzMaskClosable = "false" nzTitle="{{l('Warning')}}" (nzOnCancel)="confirmViewCancel()"
+    [nzFooter]="deleteDgModalFooter" nzWidth="560px" nzWrapClassName="vertical-center-modal">
+    <div class="modal-info-box FlexCol">
+          <div class="left-img">
+                <img class="img" src="../../../assets/svg/warning.svg">
+          </div>
+          <div class="Fill right-content FlexCol">
+                <p  class="text">{{l('Are you sure to delete the beamgroup?')}}</p>
+          </div>
+    </div>
+    <ng-template #deleteDgModalFooter>
+        <button nz-button nzType="default" (click)="confirmViewCancel()">{{l('Cancel')}}</button>
+        <button nz-button nzType="primary" (click)="confirmViewOK()">{{l('OK')}}</button>
+    </ng-template>
+</nz-modal>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>icon/piliangjihuo</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/piliangjihuo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M9.8,15.9 L9.8,17 L6.5,17 C3.46243388,17 1,14.5375661 1,11.5 C1,8.46243388 3.46243388,6 6.5,6 L17.5,6 C20.5375661,6 23,8.46243388 23,11.5 C23,12.503964 22.7310018,13.4451001 22.2611479,14.2552658 C21.9869271,14.0114771 21.6513248,13.8352291 21.2804334,13.7526141 C21.6739096,13.0936854 21.9,12.3232458 21.9,11.5 C21.9,9.0699471 19.9300529,7.1 17.5,7.1 L6.5,7.1 C4.0699471,7.1 2.1,9.0699471 2.1,11.5 C2.1,13.9300529 4.0699471,15.9 6.5,15.9 L9.79999998,15.9 Z" id="Combined-Shape" fill="#DCE0F2" fill-rule="nonzero"></path>
+        <polygon id="Rectangle" fill="#DCE0F2" points="11 16 15 15 15 21 11 20"></polygon>
+        <polygon id="Rectangle-Copy" fill="#DCE0F2" points="16 16.6666667 18 16 18 20 16 19.3333333"></polygon>
+        <polygon id="Rectangle-Copy-2" fill="#DCE0F2" points="19 16.6666667 21 16 21 20 19 19.3333333"></polygon>
+        <circle id="Oval" fill="#DCE0F2" opacity="0.5" cx="17.5" cy="11.5" r="3.5"></circle>
+        <polygon id="Path-10" fill="#47BE68" points="11.2406343 8 12 8.73869743 7.4266556 14 5 10.1066344 5.86125047 9.50589322 7.56105613 12.233089"></polygon>
+    </g>
+</svg>
